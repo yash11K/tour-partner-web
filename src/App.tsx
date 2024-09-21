@@ -1,5 +1,5 @@
+import React from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-
 import { ErrorComponent, useNotificationProvider } from "@refinedev/antd";
 import { Authenticated, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
@@ -9,14 +9,12 @@ import routerProvider, {
   NavigateToResource,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
-
 import { App as AntdApp, ConfigProvider } from "antd";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { resources, themeConfig } from "@/config";
-import { authProvider, dataProvider, liveProvider } from "@/providers";
-
+import { dataProvider } from "@/providers";
 import { AlgoliaSearchWrapper, FullScreenLoading, Layout } from "./components";
-import { useAutoLoginForDemo } from "./hooks";
 import { AuditLogPage, SettingsPage } from "./routes/administration";
 import {
   CompanyCreatePage,
@@ -34,15 +32,19 @@ import "@refinedev/antd/dist/reset.css";
 import "./styles/antd.css";
 import "./styles/fc.css";
 import "./styles/index.css";
+import useAuth0Provider from "./providers/auth0-provider";
+
+
+const API_URL = "https://api.fake-rest.refine.dev";
 
 const App: React.FC = () => {
-  // This hook is used to automatically login the user.
-  // We use this hook to skip the login page and demonstrate the application more quickly.
-  const { loading } = useAutoLoginForDemo();
+  const { isLoading } = useAuth0();
 
-  if (loading) {
+  if (isLoading) {
     return <FullScreenLoading />;
   }
+
+  const authProvider = useAuth0Provider(); // Use the Auth0 provider
 
   return (
     <AlgoliaSearchWrapper>
@@ -52,8 +54,7 @@ const App: React.FC = () => {
             <DevtoolsProvider>
               <Refine
                 authProvider={authProvider}
-                dataProvider={dataProvider}
-                liveProvider={liveProvider}
+                dataProvider={dataProvider} // Fix: pass the dataProvider directly
                 routerProvider={routerProvider}
                 resources={resources}
                 notificationProvider={useNotificationProvider}

@@ -45,3 +45,22 @@ export const wsClient = createClient({
 export const dataProvider = graphqlDataProvider(client);
 
 export const liveProvider = graphqlLiveProvider(wsClient);
+
+
+// import restDataProvider from "./restDataProvider";
+// import { axiosInstance } from "./axios";
+
+// export const API_BASE_URL = "https://api.crm.refine.dev";
+
+// // Use the REST data provider
+// export const dataProvider = restDataProvider;
+
+// // If you have a live provider, you can implement it similarly for REST
+// export const liveProvider = {
+//   subscribe: () => {
+//     // Implement your live provider logic here
+//   },
+//   unsubscribe: () => {
+//     // Implement your live provider logic here
+//   },
+// };
