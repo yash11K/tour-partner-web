@@ -3,7 +3,6 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import gql from "graphql-tag";
 
-import type { UsersSelectQuery } from "@/rest-api/types";
 
 const USERS_SELECT_QUERY = gql`
     query UsersSelect(
@@ -22,9 +21,8 @@ const USERS_SELECT_QUERY = gql`
 `;
 
 export const useUsersSelect = () => {
-  return useSelect<GetFieldsFromList<UsersSelectQuery>>({
+  return useSelect<GetFieldsFromList<any>>({
     resource: "users",
-    optionLabel: "name",
     meta: {
       gqlQuery: USERS_SELECT_QUERY,
     },

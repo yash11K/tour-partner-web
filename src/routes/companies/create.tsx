@@ -1,216 +1,195 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { Modal, Form, Input, Switch, message, Button, Row, Col, Image, Space } from 'antd';
+import { createOrganization } from './queries';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
-import { useModalForm } from "@refinedev/antd";
-import {
-  type CreateResponse,
-  type HttpError,
-  useCreateMany,
-  useGetToPath,
-  useGo,
-} from "@refinedev/core";
-import type { GetFields, GetVariables } from "@refinedev/nestjs-query";
+interface NewOrganizationModalProps {
+  visible: boolean;
+  onCancel: () => void;
+  onSuccess: () => void;
+}
 
-import {
-  DeleteOutlined,
-  LeftOutlined,
-  MailOutlined,
-  PlusCircleOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Select,
-  Space,
-  Typography,
-} from "antd";
+export const NewOrganizationModal: React.FC<NewOrganizationModalProps> = ({
+  visible,
+  onCancel,
+  onSuccess,
+}) => {
+  const [form] = Form.useForm();
+  const [logoUrl, setLogoUrl] = useState('');
+  const [showAvisLogo, setShowAvisLogo] = useState(false);
+  const [showBudgetLogo, setShowBudgetLogo] = useState(false);
 
-import { SelectOptionWithAvatar } from "@/components";
-import type {
-  CreateCompanyMutation,
-  CreateCompanyMutationVariables,
-} from "@/rest-api/types";
-import { useUsersSelect } from "@/hooks/useUsersSelect";
+  const handleSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      const metadata: Record<string, string> = {};
 
-import { COMPANY_CREATE_MUTATION } from "./queries";
+      // Only add avis and budget to metadata if they are defined
+      if (values.avis !== undefined) {
+        metadata.avis = values.avis.toString();
+      }
+      if (values.budget !== undefined) {
+        metadata.budget = values.budget.toString();
+      }
 
-type Company = GetFields<CreateCompanyMutation>;
+      // Add custom metadata fields
+      values.metadataFields?.forEach(({ key, value }: { key: string; value: string }) => {
+        if (key && value) {
+          metadata[key] = value;
+        }
+      });
 
-type Props = {
-  isOverModal?: boolean;
-};
+      const newOrganization = {
+        name: values.name,
+        displayName: values.displayName,
+        logo: values.logo,
+        metadata,
+      };
 
-type FormValues = GetVariables<CreateCompanyMutationVariables> & {
-  contacts?: {
-    name?: string;
-    email?: string;
-  }[];
-};
-
-export const CompanyCreatePage = ({ isOverModal }: Props) => {
-  const getToPath = useGetToPath();
-  const [searchParams] = useSearchParams();
-  const { pathname } = useLocation();
-  const go = useGo();
-
-  const { formProps, modalProps, close, onFinish } = useModalForm<
-    Company,
-    HttpError,
-    FormValues
-  >({
-    action: "create",
-    defaultVisible: true,
-    resource: "companies",
-    redirect: false,
-    warnWhenUnsavedChanges: !isOverModal,
-    mutationMode: "pessimistic",
-    meta: {
-      gqlMutation: COMPANY_CREATE_MUTATION,
-    },
-  });
-
-  const { selectProps, queryResult } = useUsersSelect();
-
-  const { mutateAsync: createManyMutateAsync } = useCreateMany({
-    resource: "contacts",
-    successNotification: false,
-  });
+      await createOrganization(newOrganization);
+      message.success('Organization created successfully');
+      form.resetFields();
+      setLogoUrl('');
+      setShowAvisLogo(false);
+      setShowBudgetLogo(false);
+      onSuccess();
+    } catch (error) {
+      console.error('Failed to create organization:', error);
+      message.error('Failed to create organization');
+    }
+  };
 
   return (
     <Modal
-      {...modalProps}
-      mask={!isOverModal}
-      onCancel={() => {
-        close();
-        go({
-          to:
-            searchParams.get("to") ??
-            getToPath({
-              action: "list",
-            }) ??
-            "",
-          query: {
-            to: undefined,
-          },
-          options: {
-            keepQuery: true,
-          },
-          type: "replace",
-        });
-      }}
-      title="Add new company"
-      width={512}
-      // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-      closeIcon={<LeftOutlined />}
+      title="Register New Partner"
+      visible={visible}
+      onCancel={onCancel}
+      onOk={handleSubmit}
+      width={800}
     >
-      <Form
-        {...formProps}
-        layout="vertical"
-        onFinish={async (values) => {
-          try {
-            const data = await onFinish({
-              name: values.name,
-              salesOwnerId: values.salesOwnerId,
-            });
-
-            const createdCompany = (data as CreateResponse<Company>)?.data;
-
-            if ((values.contacts ?? [])?.length > 0) {
-              await createManyMutateAsync({
-                values:
-                  values.contacts?.map((contact) => ({
-                    ...contact,
-                    companyId: createdCompany.id,
-                    salesOwnerId: createdCompany.salesOwner.id,
-                  })) ?? [],
-              });
-            }
-
-            go({
-              to: searchParams.get("to") ?? pathname,
-              query: {
-                companyId: createdCompany.id,
-                to: undefined,
-              },
-              options: {
-                keepQuery: true,
-              },
-              type: "replace",
-            });
-          } catch (error) {
-            Promise.reject(error);
-          }
-        }}
-      >
-        <Form.Item
-          label="Company name"
-          name="name"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="Please enter company name" />
-        </Form.Item>
-        <Form.Item
-          label="Sales owner"
-          name="salesOwnerId"
-          rules={[{ required: true }]}
-        >
-          <Select
-            placeholder="Please sales owner user"
-            {...selectProps}
-            options={
-              queryResult.data?.data?.map((user) => ({
-                value: user.id,
-                label: (
-                  <SelectOptionWithAvatar
-                    name={user.name}
-                    avatarUrl={user.avatarUrl ?? undefined}
+      <Form form={form} layout="vertical">
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              name="name"
+              label="Name"
+              rules={[{ required: true, message: 'Please enter the name' }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="displayName"
+              label="Display Name"
+              rules={[{ required: true, message: 'Please enter the display name' }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="logo"
+              label="Logo URL"
+              rules={[{ required: true, message: 'Please enter the logo URL' }]}
+            >
+              <Input onChange={(e) => setLogoUrl(e.target.value)} />
+            </Form.Item>
+            <Form.Item name="avis" label="Avis" valuePropName="checked" initialValue={false}>
+              <Space>
+                <Switch onChange={(checked) => setShowAvisLogo(checked)} />
+                {showAvisLogo && (
+                  <Image
+                    src="/public/avis.com.png"
+                    alt="Avis logo"
+                    width={40}
+                    preview={false}
                   />
-                ),
-              })) ?? []
-            }
-          />
-        </Form.Item>
-        <Form.List name="contacts">
+                )}
+              </Space>
+            </Form.Item>
+            <Form.Item name="budget" label="Budget" valuePropName="checked" initialValue={false}>
+              <Space>
+                <Switch onChange={(checked) => setShowBudgetLogo(checked)} />
+                {showBudgetLogo && (
+                  <Image
+                    src="/public/budget.com.png"
+                    alt="Budget logo"
+                    width={40}
+                    preview={false}
+                  />
+                )}
+              </Space>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <div style={{ marginBottom: 16 }}>
+              <h4>Logo Preview</h4>
+              {logoUrl ? (
+                <Image
+                  src={logoUrl}
+                  alt="Logo preview"
+                  style={{ maxWidth: '100%', maxHeight: 200, objectFit: 'contain' }}
+                />
+              ) : (
+                <div style={{ width: '100%', height: 200, backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  No logo URL provided
+                </div>
+              )}
+            </div>
+          </Col>
+        </Row>
+        <Form.List name="metadataFields">
           {(fields, { add, remove }) => (
-            <Space direction="vertical">
+            <>
               {fields.map(({ key, name, ...restField }) => (
-                <Row key={key} gutter={12} align="middle">
-                  <Col span={11}>
-                    <Form.Item noStyle {...restField} name={[name, "name"]}>
-                      <Input
-                        // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-                        addonBefore={<UserOutlined />}
-                        placeholder="Contact name"
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col span={11}>
-                    <Form.Item noStyle name={[name, "email"]}>
-                      <Input
-                        // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-                        addonBefore={<MailOutlined />}
-                        placeholder="Contact email"
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col span={2}>
-                    <Button
-                      // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-                      icon={<DeleteOutlined />}
-                      onClick={() => remove(name)}
-                    />
-                  </Col>
-                </Row>
+                <Form.Item
+                  key={key}
+                  required={false}
+                  style={{ marginBottom: 8 }}
+                >
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'key']}
+                    validateTrigger={['onChange', 'onBlur']}
+                    rules={[
+                      {
+                        required: true,
+                        whitespace: true,
+                        message: "Please input metadata key or delete this field.",
+                      },
+                    ]}
+                    noStyle
+                  >
+                    <Input placeholder="Metadata Key" style={{ width: '45%' }} />
+                  </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'value']}
+                    validateTrigger={['onChange', 'onBlur']}
+                    rules={[
+                      {
+                        required: true,
+                        whitespace: true,
+                        message: "Please input metadata value or delete this field.",
+                      },
+                    ]}
+                    noStyle
+                  >
+                    <Input placeholder="Metadata Value" style={{ width: '45%', marginLeft: 8 }} />
+                  </Form.Item>
+                  <MinusCircleOutlined
+                    onClick={() => remove(name)}
+                    style={{ margin: '0 8px' }} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                  />
+                </Form.Item>
               ))}
-              <Typography.Link onClick={() => add()}>
-                {/* @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66 */}
-                <PlusCircleOutlined /> Add new contacts
-              </Typography.Link>
-            </Space>
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                >
+                  Add Metadata Field
+                </Button>
+              </Form.Item>
+            </>
           )}
         </Form.List>
       </Form>

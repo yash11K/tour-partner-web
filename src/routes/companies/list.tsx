@@ -2,19 +2,22 @@ import React, { type FC, type PropsWithChildren, useState } from "react";
 
 import { List, useTable } from "@refinedev/antd";
 import { HttpError } from "@refinedev/core";
+
 import { AppstoreOutlined, SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import { Form, Grid, Input, Radio, Space, Spin } from "antd";
+import { Form, Grid, Input, Modal, Radio, Space, Spin } from "antd";
 import debounce from "lodash/debounce";
 
 import { ListTitleButton } from "@/components";
-import { CompaniesCardView, CompaniesTableView } from "./components";
 
+import { CompaniesCardView, CompaniesTableView } from "./components";
 import { getOrganizations } from "./queries";
+import { NewOrganizationModal } from "./create";
 
 type View = "card" | "table";
 
 export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
   const [view, setView] = useState<View>("card");
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const screens = Grid.useBreakpoint();
 
   const {
@@ -132,7 +135,10 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
           },
         }}
         title={
-          <ListTitleButton toPath="companies" buttonText="Add new company" />
+          <ListTitleButton
+            buttonText="Register Partner"
+            onClick={() => setIsModalVisible(true)}
+          />
         }
       >
         {view === "table" ? (
@@ -149,7 +155,13 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
           />
         )}
       </List>
-      {children}
+      <NewOrganizationModal
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        onSuccess={() => {
+          setIsModalVisible(false);
+        }}
+      />
     </div>
   );
 };

@@ -1,99 +1,82 @@
 import type { FC } from "react";
-
-import { useDelete, useNavigation } from "@refinedev/core";
-import type { GetFieldsFromList } from "@refinedev/nestjs-query";
-
-import { DeleteOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons";
-import { Button, Card, Dropdown, Space, Tooltip } from "antd";
-
+import { useNavigation, useNotification } from "@refinedev/core";
+import { EyeOutlined, PlusOutlined, MoreOutlined } from "@ant-design/icons";
+import { Button, Card, Dropdown, Modal, Space, Tag, Typography } from "antd";
 import { CustomAvatar, Text } from "@/components";
-import { currencyNumber } from "@/utilities";
-
-import { AvatarGroup } from "../../avatar-group";
-import { CompanyCardSkeleton } from "./skeleton";
-import { Company } from "@/rest-api/types";
+import { Organization } from "@/rest-api/types";
 import { getOrganization } from "@/routes/companies/queries";
+import { currencyNumber } from "@/utilities";
+import dayjs from 'dayjs';
+import axios from "axios";
 
 type Props = {
-  company: Company;
+  company: Organization;
 };
 
 export const CompanyCard: FC<Props> = ({ company }) => {
   const { edit } = useNavigation();
-  const { mutate } = useDelete();
+  const { open } = useNotification();
+
+  const handleStatusChange = async () => {
+    Modal.confirm({
+      title: `Are you sure you want to ${company.metadata?.isBlocked ? 'unblock' : 'block'} this company?`,
+      onOk: async () => {
+        try {
+          // Replace with your actual API endpoint
+          const response = await axios.post(`/api/companies/${company.id}/toggle-status`);
+          
+          if (response.status === 200) {
+            open?.({
+              type: 'success',
+              message: `Company successfully ${company.metadata?.isBlocked ? 'unblocked' : 'blocked'}`,
+            });
+            // You might want to refresh the company data here
+          } else {
+            throw new Error('Failed to update company status');
+          }
+        } catch (error) {
+          open?.({
+            type: 'error',
+            message: 'An error occurred while updating the company status',
+          });
+        }
+      },
+    });
+  };
 
   return (
     <Card
       size="small"
       actions={[
-        <div
-          key="1"
-          style={{
-            width: "100%",
-            height: "60px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            padding: "0 16px",
+        <Button
+          key="addAdmin"
+          icon={<PlusOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+          size="small"
+          type="primary"
+          style={{ backgroundColor: '#1890ff' }}
+          onClick={() => {
+            console.log('Add new admin for company:', company.id);
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: "6px",
-            }}
-          >
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              gap: "6px",
-            }}
-          >
-          </div>
-        </div>,
+          Add Admin
+        </Button>,
       ]}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          position: "relative",
-        }}
-      >
+      <div style={{ position: "relative" }}>
         <Dropdown
           menu={{
             items: [
               {
                 label: "View company",
                 key: "1",
-                // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-                icon: <EyeOutlined />,
-                onClick: () => {
-                  getOrganization(company.id);
-                },
-              },
-              {
-                danger: true,
-                label: "Disable Partner",
-                key: "2",
-                // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-                icon: <DeleteOutlined />,
-                onClick: () => {
-                  mutate({
-                    resource: "company",
-                    id: company.id,
-                  });
+                icon: <EyeOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+                onClick: async () => {
+                  await getOrganization(company.id);
                 },
               },
             ],
           }}
-          placement="bottom"
+          placement="bottomRight"
           arrow
         >
           <Button
@@ -104,55 +87,52 @@ export const CompanyCard: FC<Props> = ({ company }) => {
               top: 0,
               right: 0,
             }}
-            icon={
-              // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-              <MoreOutlined
-                style={{
-                  transform: "rotate(90deg)",
-                }}
-              />
-            }
+            icon={<MoreOutlined style={{ transform: "rotate(90deg)" }} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
           />
         </Dropdown>
 
-        <CustomAvatar
-          name={company.name}
-          src={company.avatarUrl}
-          shape="square"
-          style={{
-            width: "48px",
-            height: "48px",
-          }}
-        />
-        <Text
-          strong
-          size="md"
-          ellipsis={{ tooltip: company.name }}
-          style={{
-            marginTop: "12px",
-          }}
-        >
-          {company.name}
-        </Text>
-        <Text type="secondary">{company.brands}</Text>
+        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+          <Space>
+            <CustomAvatar
+              shape="square"
+              name={company.name}
+              src={company.branding?.logo_url}
+              style={{ width: "48px", height: "48px", objectFit: "contain" }}
+            />
+            <Text strong>{company.name}</Text>
+          </Space>
 
-        <Space
-          direction="vertical"
-          size={0}
-          style={{
-            marginTop: "8px",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            strong
-            size="md"
-            style={{
-              marginTop: "12px",
-            }}
+          <Space direction="vertical" size="small">
+            <Text>Revenue: {currencyNumber(5000)}</Text>
+            <Text>Created At: {dayjs(company.metadata?.createdAt).format('MMMM D, YYYY')}</Text>
+          </Space>
+
+          <Space>
+            {company.metadata?.avis === "true" && (
+              <div style={{
+                width: 40, height: 40, borderRadius: '50%', overflow: 'hidden',
+                display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f0f0f0',
+              }}>
+                <img src="/public/avis.com.png" alt="Avis" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+            )}
+            {company.metadata?.budget === "true" && (
+              <div style={{
+                width: 40, height: 40, borderRadius: '50%', overflow: 'hidden',
+                display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f0f0f0',
+              }}>
+                <img src="/public/budget.com.png" alt="Budget" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+            )}
+          </Space>
+
+          <Button
+            danger={!company.metadata?.isBlocked}
+            type={company.metadata?.isBlocked ? "primary" : "default"}
+            onClick={handleStatusChange}
           >
-            {currencyNumber(5000)}
-          </Text>
+            {company.metadata?.isBlocked ? "Blocked" : "Active"}
+          </Button>
         </Space>
       </div>
     </Card>

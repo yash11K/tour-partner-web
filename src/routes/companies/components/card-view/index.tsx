@@ -9,7 +9,7 @@ import { CompanyCard, CompanyCardSkeleton } from "./card";
 import {Organization} from "@/rest-api/types";
 
 type Props = {
-  tableProps: TableProps<Company>;
+  tableProps: TableProps<Organization>;
   setCurrent: (current: number) => void;
   setPageSize: (pageSize: number) => void;
 };
@@ -41,9 +41,13 @@ export const CompaniesCardView: FC<Props> = ({
             company={{
               id: item.id,
               name: item.name,
-              avatarUrl: item.branding?.logo_url,
-              createdAt: item.metadata?.createdAt,
-              isBlocked: item.metadata?.isBlocked === "true",
+              branding: { logo_url: item.branding?.logo_url },
+              metadata: {
+                  createdAt: item.metadata?.createdAt,
+                  isBlocked: item.metadata?.isBlocked ? "true" : "false",
+                  avis: item.metadata?.avis,
+                  budget: item.metadata?.budget,
+              }
             }}
           />
         </List.Item>

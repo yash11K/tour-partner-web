@@ -5,13 +5,12 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 
-import type { UsersSelectQuery } from "@/rest-api/types";
 
 import { CustomAvatar } from "../custom-avatar";
 
 type Props = {
-  userOne: GetFieldsFromList<UsersSelectQuery>;
-  userTwo: GetFieldsFromList<UsersSelectQuery>;
+  userOne: GetFieldsFromList<any>;
+  userTwo: GetFieldsFromList<any>;
 };
 
 export const Participants: FC<Props> = ({ userOne, userTwo }) => {
@@ -33,8 +32,8 @@ export const Participants: FC<Props> = ({ userOne, userTwo }) => {
       <PlusCircleOutlined className="xs tertiary" />
       <Tooltip title={userTwo.name}>
         <CustomAvatar
+            src={userTwo.avatarUrl}
           size="small"
-          src={userTwo.avatarUrl}
           name={userTwo.name}
         />
       </Tooltip>

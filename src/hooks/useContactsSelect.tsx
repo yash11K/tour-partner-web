@@ -4,7 +4,6 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import gql from "graphql-tag";
 
-import type { ContactsSelectQuery } from "@/rest-api/types";
 
 const CONTACTS_SELECT_QUERY = gql`
     query ContactsSelect(
@@ -24,9 +23,8 @@ const CONTACTS_SELECT_QUERY = gql`
 
 export const useContactsSelect = (params?: { filters?: CrudFilters }) => {
   const { filters } = params || {};
-  return useSelect<GetFieldsFromList<ContactsSelectQuery>>({
+  return useSelect<GetFieldsFromList<any>>({
     resource: "contacts",
-    optionLabel: "name",
     filters,
     meta: {
       gqlQuery: CONTACTS_SELECT_QUERY,

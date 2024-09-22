@@ -8,12 +8,8 @@ import { EditOutlined } from "@ant-design/icons";
 import { Button, Form, Select, Skeleton, Space } from "antd";
 
 import { CustomAvatar, SelectOptionWithAvatar, Text } from "@/components";
-import type { User } from "@/rest-api/schema.types";
-import type {
-  CompanyTitleFormMutation,
-  CompanyTitleFormMutationVariables,
-} from "@/rest-api/types";
 import { useUsersSelect } from "@/hooks/useUsersSelect";
+import type { User } from "@/rest-api/schema.types";
 import { getNameInitials } from "@/utilities";
 
 import { COMPANY_TITLE_FORM_MUTATION, COMPANY_TITLE_QUERY } from "./queries";
@@ -25,9 +21,9 @@ export const CompanyTitleForm = () => {
     query: queryResult,
     onFinish,
   } = useForm<
-    GetFields<CompanyTitleFormMutation>,
+    GetFields<any>,
     HttpError,
-    GetVariables<CompanyTitleFormMutationVariables>
+    GetVariables<any>
   >({
     redirect: false,
     meta: {

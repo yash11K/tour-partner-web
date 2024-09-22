@@ -27,8 +27,7 @@ export const getOrganizations = async (): Promise<{ organizations: { totalCount:
 };
 
 export const createOrganization = async (input: Partial<Organization>): Promise<{ organization: Organization }> => {
-    // Implement the REST API call here
-    const response = await fetch('/organizations', {
+    const response = await fetch('http://localhost:8080/organizations', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,8 +35,11 @@ export const createOrganization = async (input: Partial<Organization>): Promise<
         body: JSON.stringify(input),
     });
 
-    const data: Organization = await response.json();
+    if (!response.ok) {
+        throw new Error('Failed to create organization');
+    }
 
+    const data: Organization = await response.json();
     return { organization: data };
 };
 

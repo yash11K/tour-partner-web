@@ -15,7 +15,6 @@ import { Button, Card, Input, Select, Space, Table } from "antd";
 
 import { Participants, QuoteStatusTag, Text } from "@/components";
 import type { QuoteStatus } from "@/rest-api/schema.types";
-import type { CompanyQuotesTableQuery } from "@/rest-api/types";
 import { useUsersSelect } from "@/hooks/useUsersSelect";
 import { currencyNumber } from "@/utilities";
 
@@ -25,7 +24,7 @@ type Props = {
   style?: React.CSSProperties;
 };
 
-type Quote = GetFieldsFromList<CompanyQuotesTableQuery>;
+type Quote = GetFieldsFromList<any>;
 
 export const CompanyQuotesTable: FC<Props> = ({ style }) => {
   const { listUrl } = useNavigation();

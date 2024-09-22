@@ -8,7 +8,6 @@ import type { PieConfig } from "@ant-design/plots";
 import { Button, Card } from "antd";
 
 import { Text } from "@/components";
-import type { DashboardTasksChartQuery } from "@/rest-api/types";
 
 import { DASHBOARD_TASKS_CHART_QUERY } from "./queries";
 
@@ -18,7 +17,7 @@ export const DashboardTasksChart: React.FC = () => {
   const { list } = useNavigation();
 
   const { data, isError, error } = useList<
-    GetFieldsFromList<DashboardTasksChartQuery>
+    GetFieldsFromList<any>
   >({
     resource: "taskStages",
     pagination: {

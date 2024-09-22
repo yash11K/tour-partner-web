@@ -6,13 +6,11 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 import { Badge } from "antd";
 import dayjs from "dayjs";
 
-import type { UpcomingEventsQuery } from "@/rest-api/types";
-
 import { Text } from "../../../text";
 import styles from "../index.module.css";
 
 type CalendarUpcomingEventProps = {
-  item: GetFieldsFromList<UpcomingEventsQuery>;
+  item: GetFieldsFromList<any>;
 };
 
 export const CalendarUpcomingEvent: React.FC<CalendarUpcomingEventProps> = ({

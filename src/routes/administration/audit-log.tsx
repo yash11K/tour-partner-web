@@ -21,12 +21,11 @@ import {
 } from "antd";
 
 import { CustomAvatar, PaginationTotal, Text } from "@/components";
-import type { AdministrationAuditLogsQuery } from "@/rest-api/types";
 
 import { ActionCell } from "./components";
 import { ADMINISTRATION_AUDIT_LOGS_QUERY } from "./queries";
 
-export type Audit = GetFieldsFromList<AdministrationAuditLogsQuery>;
+export type Audit = GetFieldsFromList<any>;
 
 const getActionColor = (action: string): TagProps["color"] => {
   switch (action) {

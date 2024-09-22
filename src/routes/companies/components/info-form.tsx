@@ -1,6 +1,6 @@
 import React from "react";
 import { useOne } from "@refinedev/core";
-import { Card, Space } from "antd";
+import { Card, Space, Image } from "antd";
 import { Text } from "@/components";
 import type { Company } from "@/rest-api/schema.types";
 import { currencyNumber } from "@/utilities";
@@ -52,15 +52,24 @@ export const CompanyInfoForm: React.FC = () => {
         </div>
         <div>
           <Text strong>Brands:</Text>
-          {companyData.brands && companyData.brands.length > 0 ? (
-            <ul>
-              {companyData.brands.map((brand, index) => (
-                <li key={index}>{brand}</li>
-              ))}
-            </ul>
-          ) : (
-            " No brands available"
-          )}
+          <Space>
+            {companyData.metadata?.avis && (
+              <Image
+                src="/public/avis.com.png"
+                alt="Avis"
+                width={100}
+                preview={false}
+              />
+            )}
+            {companyData.metadata?.budget && (
+              <Image
+                src="/public/budget.com.png"
+                alt="Budget"
+                width={100}
+                preview={false}
+              />
+            )}
+          </Space>
         </div>
       </Space>
     </Card>

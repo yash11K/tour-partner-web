@@ -15,13 +15,12 @@ import { Card, Col, Input, Row, Select, Space, Table } from "antd";
 import cn from "classnames";
 
 import { CustomAvatar, Logo, Text } from "@/components";
-import type { AdministrationUsersQuery } from "@/rest-api/types";
 
 import { RoleTag } from "./components";
 import { ADMINISTRATION_USERS_QUERY } from "./queries";
 import styles from "./settings.module.css";
 
-type User = GetFieldsFromList<AdministrationUsersQuery>;
+type User = GetFieldsFromList<any>;
 
 export const SettingsPage = () => {
   return (

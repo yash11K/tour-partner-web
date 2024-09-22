@@ -8,10 +8,6 @@ import { Card, Skeleton as AntdSkeleton } from "antd";
 import dayjs from "dayjs";
 
 import { CustomAvatar, Text } from "@/components";
-import type {
-  LatestActivitiesAuditsQuery,
-  LatestActivitiesDealsQuery,
-} from "@/rest-api/types";
 
 import styles from "./index.module.css";
 import { AUDITS_QUERY, DEALS_QUERY } from "./queries";
@@ -20,7 +16,7 @@ export const DashboardLatestActivities: React.FC<{ limit?: number }> = ({
   limit = 5,
 }) => {
   const { data: deals, isLoading: isLoadingDeals } = useList<
-    GetFieldsFromList<LatestActivitiesDealsQuery>
+    GetFieldsFromList<any>
   >({
     resource: "deals",
     pagination: {
@@ -35,7 +31,7 @@ export const DashboardLatestActivities: React.FC<{ limit?: number }> = ({
     isLoading: isLoadingAudit,
     isError,
     error,
-  } = useList<GetFieldsFromList<LatestActivitiesAuditsQuery>>({
+  } = useList<GetFieldsFromList<any>>({
     resource: "audits",
     pagination: {
       pageSize: limit,

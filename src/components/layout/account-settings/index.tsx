@@ -25,11 +25,6 @@ import {
 } from "antd";
 
 import { TimezoneEnum } from "@/enums";
-import type {
-  AccountSettingsGetUserQuery,
-  AccountSettingsUpdateUserMutation,
-  AccountSettingsUpdateUserMutationVariables,
-} from "@/rest-api/types";
 
 import { CustomAvatar } from "../../custom-avatar";
 import { SingleElementForm } from "../../single-element-form";
@@ -57,7 +52,7 @@ export const AccountSettings = ({ opened, setOpened, userId }: Props) => {
   const [activeForm, setActiveForm] = useState<FormKeys>();
 
   const { data, isLoading, isError } = useOne<
-    GetFields<AccountSettingsGetUserQuery>
+    GetFields<any>
   >({
     resource: "users",
     id: userId,
@@ -70,9 +65,9 @@ export const AccountSettings = ({ opened, setOpened, userId }: Props) => {
   });
 
   const { mutate: updateMutation } = useUpdate<
-    GetFields<AccountSettingsUpdateUserMutation>,
+    GetFields<any>,
     HttpError,
-    GetVariables<AccountSettingsUpdateUserMutationVariables>
+    GetVariables<any>
   >();
 
   const closeModal = () => {

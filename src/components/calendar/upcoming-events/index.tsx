@@ -8,8 +8,6 @@ import type { CardProps } from "antd";
 import { Button, Card, Skeleton as AntdSkeleton } from "antd";
 import dayjs from "dayjs";
 
-import type { UpcomingEventsQuery } from "@/rest-api/types";
-
 import { Text } from "../../text";
 import { CalendarUpcomingEvent } from "./event";
 import styles from "./index.module.css";
@@ -72,7 +70,7 @@ export const CalendarUpcomingEvents: React.FC<CalendarUpcomingEventsProps> = ({
 }) => {
   const { list } = useNavigation();
 
-  const { data, isLoading } = useList<GetFieldsFromList<UpcomingEventsQuery>>({
+  const { data, isLoading } = useList<GetFieldsFromList<any>>({
     resource: "events",
     pagination: {
       pageSize: limit,

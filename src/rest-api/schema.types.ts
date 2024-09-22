@@ -4953,3 +4953,5 @@ export interface CompanyFormFields extends Company {
   logo?: string;
 }
 
+export type { Company };
+

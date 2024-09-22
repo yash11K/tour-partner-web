@@ -3,7 +3,7 @@ import { Maybe, Scalars } from "./schema.types";
 export type Organization = {
   id: string;
   name: string;
-  display_name: string;
+  display_name?: string;
   branding?: {
     logo_url?: string;
   };

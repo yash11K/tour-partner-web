@@ -1,15 +1,10 @@
 import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
-import type {
-  NotificationsDealsQuery,
-  NotificationsQuery,
-} from "@/rest-api/types";
-
 import { Text } from "../text";
 
 type Props = {
-  audit: GetFieldsFromList<NotificationsQuery>;
-  deal?: GetFieldsFromList<NotificationsDealsQuery>;
+  audit: GetFieldsFromList<any>;
+  deal?: GetFieldsFromList<any>;
 };
 
 export const NotificationMessage = ({ audit, deal }: Props) => {

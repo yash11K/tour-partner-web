@@ -9,7 +9,6 @@ import { Button, Card } from "antd";
 import dayjs from "dayjs";
 
 import { Text } from "@/components";
-import type { DashboardDealsChartQuery } from "@/rest-api/types";
 
 import { DASHBOARD_DEALS_CHART_QUERY } from "./queries";
 
@@ -18,7 +17,7 @@ const Area = lazy(() => import("@ant-design/plots/es/components/area"));
 export const DashboardDealsChart: React.FC = () => {
   const { list } = useNavigation();
   const { data, isError, error } = useList<
-    GetFieldsFromList<DashboardDealsChartQuery>
+    GetFieldsFromList<any>
   >({
     resource: "dealStages",
     filters: [{ field: "title", operator: "in", value: ["WON", "LOST"] }],
@@ -35,29 +34,29 @@ export const DashboardDealsChart: React.FC = () => {
   const dealData = useMemo(() => {
     const won = data?.data
       .find((node) => node.title === "WON")
-      ?.dealsAggregate.map((item) => {
-        const { closeDateMonth, closeDateYear } = item.groupBy!;
-        const date = dayjs(`${closeDateYear}-${closeDateMonth}-01`);
-        return {
-          timeUnix: date.unix(),
-          timeText: date.format("MMM YYYY"),
-          value: item.sum?.value,
-          state: "Won",
-        };
-      });
+      ?.dealsAggregate.map((item: { groupBy: { closeDateMonth: never; closeDateYear: never; }; sum: { value: any; }; }) => {
+          const {closeDateMonth, closeDateYear} = item.groupBy!;
+          const date = dayjs(`${closeDateYear}-${closeDateMonth}-01`);
+          return {
+            timeUnix: date.unix(),
+            timeText: date.format("MMM YYYY"),
+            value: item.sum?.value,
+            state: "Won",
+          };
+        });
 
     const lost = data?.data
       .find((node) => node.title === "LOST")
-      ?.dealsAggregate.map((item) => {
-        const { closeDateMonth, closeDateYear } = item.groupBy!;
-        const date = dayjs(`${closeDateYear}-${closeDateMonth}-01`);
-        return {
-          timeUnix: date.unix(),
-          timeText: date.format("MMM YYYY"),
-          value: item.sum?.value,
-          state: "Lost",
-        };
-      });
+      ?.dealsAggregate.map(function (item: { groupBy: { closeDateMonth: any; closeDateYear: any; }; sum: { value: any; }; }) {
+          const {closeDateMonth, closeDateYear} = item.groupBy!;
+          const date = dayjs(`${closeDateYear}-${closeDateMonth}-01`);
+          return {
+            timeUnix: date.unix(),
+            timeText: date.format("MMM YYYY"),
+            value: item.sum?.value,
+            state: "Lost",
+          };
+        });
 
     return [...(won || []), ...(lost || [])].sort(
       (a, b) => a.timeUnix - b.timeUnix,

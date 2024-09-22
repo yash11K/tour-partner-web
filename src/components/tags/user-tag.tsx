@@ -4,12 +4,11 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import { Space, Tag } from "antd";
 
-import type { UsersSelectQuery } from "@/rest-api/types";
 
 import { CustomAvatar } from "../custom-avatar";
 
 type Props = {
-  user: GetFieldsFromList<UsersSelectQuery>;
+  user: GetFieldsFromList<any>;
 };
 
 export const UserTag: FC<Props> = ({ user }) => {

@@ -2,7 +2,6 @@ import { request } from "@refinedev/nestjs-query";
 
 import type { AxiosResponse } from "axios";
 
-import type { RefreshTokenMutation } from "@/rest-api/types";
 
 import { REFRESH_TOKEN_MUTATION } from "./queries";
 
@@ -26,7 +25,7 @@ export const refreshTokens = async () => {
   if (!currentRefreshToken) return null;
 
   try {
-    const response = await request<RefreshTokenMutation>(
+    const response = await request<any>(
       "https://api.crm.refine.dev/graphql",
       REFRESH_TOKEN_MUTATION,
       {

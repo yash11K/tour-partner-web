@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42de3d8c-f02d-4456-99ec-a63a8e766700" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/rest-api/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
@@ -13,46 +12,38 @@
       <change beforePath="$PROJECT_DIR$/src/components/calendar/upcoming-events/event/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/upcoming-events/event/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/calendar/upcoming-events/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/upcoming-events/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/account-settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/account-settings/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/algolia-search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/algolia-search/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/current-user.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/current-user.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/notification-message.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/notification-message.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/notifications.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/notifications.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/list-title-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/list-title-button.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/participants/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/participants/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tags/contact-status-tag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tags/contact-status-tag.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tags/quote-status-tag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tags/quote-status-tag.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tags/user-tag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tags/user-tag.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/resources.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/resources.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/queries.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/schema.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest-api/schema.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/types.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useCompaniesSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCompaniesSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useContactsSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useContactsSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useDealStagesSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useDealStagesSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useUsersSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useUsersSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/data/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/data/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/providers/data/refresh-token.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/data/refresh-token.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rest-api/schema.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest-api/schema.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rest-api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest-api/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/administration/audit-log.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/administration/audit-log.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/administration/components/role-tag/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/administration/components/role-tag/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/administration/settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/administration/settings.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/card-view/card/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/card-view/card/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/card-view/card/skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/card-view/card/skeleton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/card-view/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/card-view/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/contacts-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/contacts-table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/deals-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/deals-table.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/contacts-table.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/deals-table.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/info-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/info-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/notes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/notes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/notes.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/quotes-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/quotes-table.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/table-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/table-view.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/title-form/title-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/title-form/title-form.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/companies/edit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/edit.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/list.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/queries.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/deals-chart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/deals-chart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/latest-activities/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/latest-activities/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/tasks-chart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/tasks-chart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/total-revenue-chart/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/total-revenue-chart/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +64,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Attach to Node.js/Chrome.Unnamed.executor": "Debug",
+    "Node.js.Debugger.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
@@ -81,11 +74,32 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Debug",
+    "npm.start.executor": "Run",
     "ts.external.directory.path": "/Users/yash/Developer_Phase/app-crm/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
+    <configuration name="Unnamed" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" nameIsGenerated="true" port="5173" restartOnDisconnect="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Debugger" type="NodeJSConfigurationType" editBeforeRun="true" working-dir="$PROJECT_DIR$">
+      <EXTENSION ID="com.intellij.lang.javascript.buildTools.npm.rc.StartBrowserRunConfigurationExtension">
+        <browser name="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" start="true" with-js-debugger="true" url="http://localhost:3001" />
+      </EXTENSION>
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="ReactNative" factoryName="React Native" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <react-native value="" />
+      <platform value="ANDROID" />
+      <envs />
+      <only-packager />
+      <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+      <method v="2">
+        <option name="ReactNativePackager" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -96,6 +110,20 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Attach to Node.js/Chrome.Unnamed" />
+      <item itemvalue="Node.js.Debugger" />
+      <item itemvalue="npm.start" />
+      <item itemvalue="npm.dev" />
+      <item itemvalue="React Native.Unnamed" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -112,7 +140,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726988729083</updated>
-      <workItem from="1726988730871" duration="9216000" />
+      <workItem from="1726988730871" duration="17867000" />
     </task>
     <servers />
   </component>
@@ -133,6 +161,45 @@
           <line>11</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
+          <line>137</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
+          <line>138</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/routes/dashboard/components/deals-chart.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/hooks/useUsersSelect.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
+          <line>19</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
+          <line>158</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

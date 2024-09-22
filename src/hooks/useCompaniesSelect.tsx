@@ -3,7 +3,6 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import gql from "graphql-tag";
 
-import type { CompaniesSelectQuery } from "@/rest-api/types";
 
 const COMPANIES_SELECT_QUERY = gql`
     query CompaniesSelect(
@@ -22,9 +21,8 @@ const COMPANIES_SELECT_QUERY = gql`
 `;
 
 export const useCompaniesSelect = () => {
-  return useSelect<GetFieldsFromList<CompaniesSelectQuery>>({
+  return useSelect<GetFieldsFromList<any>>({
     resource: "companies",
-    optionLabel: "name",
     meta: {
       gqlQuery: COMPANIES_SELECT_QUERY,
     },

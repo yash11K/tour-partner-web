@@ -17,9 +17,9 @@ import { AlgoliaSearchWrapper, FullScreenLoading, Layout } from "./components";
 import dataProvider from "@refinedev/simple-rest";
 import { AuditLogPage, SettingsPage } from "./routes/administration";
 import {
-  CompanyCreatePage,
   CompanyEditPage,
   CompanyListPage,
+  NewOrganizationModal,
 } from "./routes/companies";
 import { DashboardPage } from "./routes/dashboard";
 import { ForgotPasswordPage } from "./routes/forgot-password";
@@ -86,7 +86,6 @@ const App: React.FC = () => {
                         </CompanyListPage>
                       }
                     >
-                      <Route path="create" element={<CompanyCreatePage />} />
                     </Route>
                     <Route
                       path="/organizations/:id"

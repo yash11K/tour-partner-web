@@ -7,10 +7,6 @@ import { BellOutlined } from "@ant-design/icons";
 import { Badge, Button, Divider, Popover, Space, Spin } from "antd";
 import dayjs from "dayjs";
 
-import type {
-  NotificationsDealsQuery,
-  NotificationsQuery,
-} from "@/rest-api/types";
 
 import { CustomAvatar } from "../custom-avatar";
 import { Text } from "../text";
@@ -20,7 +16,7 @@ import { NOTIFICATIONS_DEALS_QUERY, NOTIFICATIONS_QUERY } from "./queries";
 export const Notifications: React.FC = () => {
   const [open, setOpen] = useState(false);
 
-  const { data, isLoading } = useList<GetFieldsFromList<NotificationsQuery>>({
+  const { data, isLoading } = useList<GetFieldsFromList<any>>({
     resource: "audits",
     pagination: {
       pageSize: 5,
@@ -48,7 +44,7 @@ export const Notifications: React.FC = () => {
 
   const targetIds = data?.data?.map((audit) => audit.targetId);
   const { data: dealData } = useMany<
-    GetFieldsFromList<NotificationsDealsQuery>
+    GetFieldsFromList<any>
   >({
     resource: "deals",
     ids: targetIds ?? [],
