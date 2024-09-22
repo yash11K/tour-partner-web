@@ -17,7 +17,7 @@ import { Participants, Text } from "@/components";
 import type {
   CompanyDealsTableQuery,
   CompanyTotalDealsAmountQuery,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 import { useDealStagesSelect } from "@/hooks/useDealStagesSelect";
 import { useUsersSelect } from "@/hooks/useUsersSelect";
 import { currencyNumber } from "@/utilities";

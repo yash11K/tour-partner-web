@@ -16,11 +16,11 @@ import { Button, Card, Form, Input, Space, Typography } from "antd";
 import dayjs from "dayjs";
 
 import { CustomAvatar, Text, TextIcon } from "@/components";
-import type { User } from "@/graphql/schema.types";
+import type { User } from "@/rest-api/schema.types";
 import type {
   CompanyCompanyNotesQuery,
   CompanyCreateCompanyNoteMutationVariables,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 
 import {
   COMPANY_COMPANY_NOTES_QUERY,

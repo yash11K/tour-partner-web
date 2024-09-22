@@ -15,7 +15,7 @@ import { Card, Col, Input, Row, Select, Space, Table } from "antd";
 import cn from "classnames";
 
 import { CustomAvatar, Logo, Text } from "@/components";
-import type { AdministrationUsersQuery } from "@/graphql/types";
+import type { AdministrationUsersQuery } from "@/rest-api/types";
 
 import { RoleTag } from "./components";
 import { ADMINISTRATION_USERS_QUERY } from "./queries";

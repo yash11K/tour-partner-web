@@ -1,22 +1,15 @@
-import { type FC, type PropsWithChildren, useState } from "react";
+import React, { type FC, type PropsWithChildren, useState } from "react";
 
 import { List, useTable } from "@refinedev/antd";
-import type { HttpError } from "@refinedev/core";
-import type { GetFieldsFromList } from "@refinedev/nestjs-query";
-
-import {
-  AppstoreOutlined,
-  SearchOutlined,
-  UnorderedListOutlined,
-} from "@ant-design/icons";
+import { HttpError } from "@refinedev/core";
+import { AppstoreOutlined, SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { Form, Grid, Input, Radio, Space, Spin } from "antd";
 import debounce from "lodash/debounce";
 
 import { ListTitleButton } from "@/components";
-import type { CompaniesTableQuery } from "@/graphql/types";
-
 import { CompaniesCardView, CompaniesTableView } from "./components";
-import { COMPANIES_TABLE_QUERY } from "./queries";
+
+import { getOrganizations } from "./queries";
 
 type View = "card" | "table";
 
@@ -26,7 +19,6 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
 
   const {
     tableProps,
-    tableQuery: tableQueryResult,
     searchFormProps,
     filters,
     sorters,
@@ -34,11 +26,11 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
     setPageSize,
     setFilters,
   } = useTable<
-    GetFieldsFromList<CompaniesTableQuery>,
+    any,
     HttpError,
     { name: string }
   >({
-    resource: "companies",
+    resource: "organizations",
     onSearch: (values) => {
       return [
         {
@@ -51,7 +43,7 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
     sorters: {
       initial: [
         {
-          field: "createdAt",
+          field: "metadata.createdAt",
           order: "desc",
         },
       ],
@@ -63,18 +55,13 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
           operator: "contains",
           value: undefined,
         },
-        {
-          field: "contacts.id",
-          operator: "in",
-          value: undefined,
-        },
       ],
     },
     pagination: {
       pageSize: 12,
     },
     meta: {
-      gqlQuery: COMPANIES_TABLE_QUERY,
+      loader: getOrganizations,
     },
   });
 
@@ -112,7 +99,7 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
                     suffix={
                       <Spin
                         size="small"
-                        spinning={tableQueryResult.isFetching}
+                        spinning={!!tableProps.loading}
                       />
                     }
                     placeholder="Search by name"

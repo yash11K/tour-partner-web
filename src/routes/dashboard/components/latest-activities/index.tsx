@@ -11,7 +11,7 @@ import { CustomAvatar, Text } from "@/components";
 import type {
   LatestActivitiesAuditsQuery,
   LatestActivitiesDealsQuery,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 
 import styles from "./index.module.css";
 import { AUDITS_QUERY, DEALS_QUERY } from "./queries";

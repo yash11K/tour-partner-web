@@ -5,7 +5,6 @@ import { useCustom } from "@refinedev/core";
 import { Col, Row } from "antd";
 
 import { CalendarUpcomingEvents } from "@/components";
-import type { DashboardTotalCountsQuery } from "@/graphql/types";
 
 import {
   CompaniesMap,
@@ -18,11 +17,7 @@ import {
 import { DASHBOARD_TOTAL_COUNTS_QUERY } from "./queries";
 
 export const DashboardPage: React.FC = () => {
-  const { data, isLoading } = useCustom<DashboardTotalCountsQuery>({
-    url: "",
-    method: "get",
-    meta: { gqlQuery: DASHBOARD_TOTAL_COUNTS_QUERY },
-  });
+  const isLoading = false;
 
   return (
     <div className="page-container">
@@ -31,21 +26,21 @@ export const DashboardPage: React.FC = () => {
           <DashboardTotalCountCard
             resource="companies"
             isLoading={isLoading}
-            totalCount={data?.data["companies"].totalCount}
+            totalCount={300}
           />
         </Col>
         <Col xs={24} sm={24} xl={8}>
           <DashboardTotalCountCard
             resource="contacts"
             isLoading={isLoading}
-            totalCount={data?.data["contacts"].totalCount}
+            totalCount={300}
           />
         </Col>
         <Col xs={24} sm={24} xl={8}>
           <DashboardTotalCountCard
             resource="deals"
             isLoading={isLoading}
-            totalCount={data?.data["deals"].totalCount}
+            totalCount={300}
           />
         </Col>
       </Row>

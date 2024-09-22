@@ -2,7 +2,7 @@ import { request } from "@refinedev/nestjs-query";
 
 import type { AxiosResponse } from "axios";
 
-import type { RefreshTokenMutation } from "@/graphql/types";
+import type { RefreshTokenMutation } from "@/rest-api/types";
 
 import { REFRESH_TOKEN_MUTATION } from "./queries";
 

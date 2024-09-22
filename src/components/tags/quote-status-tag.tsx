@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { Tag } from "antd";
 
-import type { QuoteStatus } from "@/graphql/schema.types";
+import type { QuoteStatus } from "@/rest-api/schema.types";
 
 const variant: Record<QuoteStatus, { color: string; icon: ReactElement }> = {
   DRAFT: {

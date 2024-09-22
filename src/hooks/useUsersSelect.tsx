@@ -3,7 +3,7 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import gql from "graphql-tag";
 
-import type { UsersSelectQuery } from "@/graphql/types";
+import type { UsersSelectQuery } from "@/rest-api/types";
 
 const USERS_SELECT_QUERY = gql`
     query UsersSelect(

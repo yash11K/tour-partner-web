@@ -33,11 +33,11 @@ import {
 } from "antd";
 
 import { ContactStatusTag, CustomAvatar, Text } from "@/components";
-import type { ContactCreateInput } from "@/graphql/schema.types";
+import type { ContactCreateInput } from "@/rest-api/schema.types";
 import type {
   CompanyContactsGetCompanyQuery,
   CompanyContactsTableQuery,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 
 import {
   COMPANY_CONTACTS_GET_COMPANY_QUERY,

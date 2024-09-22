@@ -8,7 +8,7 @@ import type { PieConfig } from "@ant-design/plots";
 import { Button, Card } from "antd";
 
 import { Text } from "@/components";
-import type { DashboardTasksChartQuery } from "@/graphql/types";
+import type { DashboardTasksChartQuery } from "@/rest-api/types";
 
 import { DASHBOARD_TASKS_CHART_QUERY } from "./queries";
 

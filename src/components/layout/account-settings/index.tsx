@@ -29,7 +29,7 @@ import type {
   AccountSettingsGetUserQuery,
   AccountSettingsUpdateUserMutation,
   AccountSettingsUpdateUserMutationVariables,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 
 import { CustomAvatar } from "../../custom-avatar";
 import { SingleElementForm } from "../../single-element-form";

@@ -4,7 +4,7 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import { Space, Tag } from "antd";
 
-import type { UsersSelectQuery } from "@/graphql/types";
+import type { UsersSelectQuery } from "@/rest-api/types";
 
 import { CustomAvatar } from "../custom-avatar";
 

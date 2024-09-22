@@ -9,7 +9,7 @@ import { Button, Card } from "antd";
 import dayjs from "dayjs";
 
 import { Text } from "@/components";
-import type { DashboardDealsChartQuery } from "@/graphql/types";
+import type { DashboardDealsChartQuery } from "@/rest-api/types";
 
 import { DASHBOARD_DEALS_CHART_QUERY } from "./queries";
 

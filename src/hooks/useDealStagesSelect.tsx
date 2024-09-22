@@ -3,7 +3,7 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import gql from "graphql-tag";
 
-import type { DealStagesSelectQuery } from "@/graphql/types";
+import type { DealStagesSelectQuery } from "@/rest-api/types";
 
 const DEAL_STAGES_SELECT_QUERY = gql`
     query DealStagesSelect(

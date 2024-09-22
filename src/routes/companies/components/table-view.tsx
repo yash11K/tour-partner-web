@@ -6,35 +6,38 @@ import {
   type CrudSorting,
   getDefaultFilter,
 } from "@refinedev/core";
-import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import { Input, Select, Space, Table, type TableProps } from "antd";
+import { Typography } from 'antd';
 
 import { CustomAvatar, PaginationTotal, Text } from "@/components";
-import type { CompaniesTableQuery } from "@/graphql/types";
-import { useContactsSelect } from "@/hooks/useContactsSelect";
-import { useUsersSelect } from "@/hooks/useUsersSelect";
 import { currencyNumber } from "@/utilities";
 
-import { AvatarGroup } from "./avatar-group";
 
-type Company = GetFieldsFromList<CompaniesTableQuery>;
-
-type Props = {
-  tableProps: TableProps<GetFieldsFromList<CompaniesTableQuery>>;
-  filters: CrudFilters;
-  sorters: CrudSorting;
+type Company = {
+  id: string;
+  name: string;
+  createdAt: string;
+  brands?: string[];
+  isBlocked?: boolean;
+  branding?: {
+    logo_url?: string;
+  };
 };
 
-export const CompaniesTableView: FC<Props> = ({ tableProps, filters }) => {
-  const { selectProps: selectPropsUsers } = useUsersSelect();
+type Props = {
+  tableProps: TableProps<Company>;
+  filters: CrudFilters;
+  sorters: CrudSorting;
+  data?: Company[]; // Add this line
+};
 
-  const { selectProps: selectPropsContacts } = useContactsSelect();
-
+export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => {
   return (
     <Table
       {...tableProps}
+      dataSource={data || tableProps.dataSource}
       pagination={{
         ...tableProps.pagination,
         pageSizeOptions: ["12", "24", "48", "96"],
@@ -59,9 +62,10 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters }) => {
           return (
             <Space>
               <CustomAvatar
-                shape="square"
+                shape="circle"
                 name={record.name}
-                src={record.avatarUrl}
+                src={record.branding?.logo_url}
+                style={{ objectFit: "contain" }}
               />
               <Text
                 style={{
@@ -75,71 +79,31 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters }) => {
         }}
       />
       <Table.Column<Company>
-        dataIndex={["salesOwner", "id"]}
-        title="Sales Owner"
-        defaultFilteredValue={getDefaultFilter("salesOwner.id", filters)}
-        filterDropdown={(props) => (
-          <FilterDropdown {...props}>
-            <Select
-              placeholder="Search Sales owner"
-              style={{ width: 220 }}
-              {...selectPropsUsers}
-            />
-          </FilterDropdown>
-        )}
-        render={(_, record) => {
-          const salesOwner = record.salesOwner;
-          return (
-            <Space>
-              <CustomAvatar name={salesOwner.name} src={salesOwner.avatarUrl} />
-              <Text
-                style={{
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {salesOwner.name}
-              </Text>
-            </Space>
-          );
-        }}
-      />
-      <Table.Column<Company>
         dataIndex={"totalRevenue"}
         title="Open deals amount"
         render={(_, company) => {
           return (
             <Text>
-              {currencyNumber(company?.dealsAggregate?.[0].sum?.value || 0)}
+              {currencyNumber(5000)} 
             </Text>
           );
         }}
       />
-      <Table.Column<Company>
-        dataIndex={["contacts", "id"]}
-        title="Related Contacts"
-        defaultFilteredValue={getDefaultFilter("contacts.id", filters, "in")}
-        filterDropdown={(props) => (
-          <FilterDropdown {...props}>
-            <Select
-              mode="multiple"
-              placeholder="Search related contacts"
-              style={{ width: 220 }}
-              {...selectPropsContacts}
-            />
-          </FilterDropdown>
-        )}
-        render={(_, record: Company) => {
-          const value = record.contacts;
-          const avatars = value?.nodes?.map((contact) => {
-            return {
-              name: contact.name,
-              src: contact.avatarUrl as string | undefined,
-            };
-          });
 
-          return <AvatarGroup avatars={avatars} size={"small"} />;
-        }}
+      <Table.Column<Company>
+        dataIndex="brands"
+        title="Brands"
+        render={(brands) => (
+          <Space direction="vertical">
+            {brands?.map((brand: string, index: number) => (
+              <Typography.Text key={index} strong>
+                {brand}
+              </Typography.Text>
+            ))}
+          </Space>
+        )}
       />
+
       <Table.Column<Company>
         fixed="right"
         dataIndex="id"

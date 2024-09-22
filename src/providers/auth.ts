@@ -1,6 +1,6 @@
 import type { AuthProvider } from "@refinedev/core";
 
-import type { User } from "@/graphql/schema.types";
+import type { User } from "@/rest-api/schema.types";
 import { disableAutoLogin, enableAutoLogin } from "@/hooks";
 
 import { API_BASE_URL, API_URL, client, dataProvider } from "./data";

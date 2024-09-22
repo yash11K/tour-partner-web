@@ -13,8 +13,8 @@ import { App as AntdApp, ConfigProvider } from "antd";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { resources, themeConfig } from "@/config";
-import { dataProvider } from "@/providers";
 import { AlgoliaSearchWrapper, FullScreenLoading, Layout } from "./components";
+import dataProvider from "@refinedev/simple-rest";
 import { AuditLogPage, SettingsPage } from "./routes/administration";
 import {
   CompanyCreatePage,
@@ -35,7 +35,7 @@ import "./styles/index.css";
 import useAuth0Provider from "./providers/auth0-provider";
 
 
-const API_URL = "https://api.fake-rest.refine.dev";
+const API_URL = "http://localhost:8080";
 
 const App: React.FC = () => {
   const { isLoading } = useAuth0();
@@ -44,7 +44,7 @@ const App: React.FC = () => {
     return <FullScreenLoading />;
   }
 
-  const authProvider = useAuth0Provider(); // Use the Auth0 provider
+  const authProvider = useAuth0Provider();
 
   return (
     <AlgoliaSearchWrapper>
@@ -54,14 +54,14 @@ const App: React.FC = () => {
             <DevtoolsProvider>
               <Refine
                 authProvider={authProvider}
-                dataProvider={dataProvider} // Fix: pass the dataProvider directly
+                dataProvider={dataProvider("http://localhost:8080")}
                 routerProvider={routerProvider}
                 resources={resources}
                 notificationProvider={useNotificationProvider}
                 options={{
-                  liveMode: "auto",
                   syncWithLocation: true,
                   warnWhenUnsavedChanges: true,
+                  projectId: "nWXYXy-t0TZrF-XYDjDz"
                 }}
               >
                 <Routes>
@@ -78,9 +78,8 @@ const App: React.FC = () => {
                     }
                   >
                     <Route index element={<DashboardPage />} />
-                    {/* Removed calendar, scrumboard, contacts, and quotes routes */}
                     <Route
-                      path="/companies"
+                      path="/tour-partners"
                       element={
                         <CompanyListPage>
                           <Outlet />
@@ -90,7 +89,7 @@ const App: React.FC = () => {
                       <Route path="create" element={<CompanyCreatePage />} />
                     </Route>
                     <Route
-                      path="/companies/edit/:id"
+                      path="/organizations/:id"
                       element={<CompanyEditPage />}
                     />
                     <Route path="/administration" element={<Outlet />}>

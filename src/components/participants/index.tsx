@@ -5,7 +5,7 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 
-import type { UsersSelectQuery } from "@/graphql/types";
+import type { UsersSelectQuery } from "@/rest-api/types";
 
 import { CustomAvatar } from "../custom-avatar";
 

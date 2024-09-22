@@ -4943,3 +4943,13 @@ export type UserUpdateInput = {
   role?: InputMaybe<Role>;
   timezone?: InputMaybe<Scalars["String"]["input"]>;
 };
+
+// Update the existing Company type or create a new one
+export interface CompanyFormFields extends Company {
+  avis?: boolean;
+  budget?: boolean
+  name: string;
+  displayName?: string;
+  logo?: string;
+}
+

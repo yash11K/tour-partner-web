@@ -23,21 +23,14 @@ export const resources: IResourceItem[] = [
   {
     name: "organizations",
     list: "/organizations",
-    show: "/companies/:id",
-    create: "/organizations",
-    edit: "/companies/:id",
+    show: "/organizations/:id",
+    create: "/organizations/create",
+    edit: "/organizations/edit/:id",
     meta: {
       label: "Tour Partners",
       // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
       icon: <ShopOutlined />,
-    },
-  },
-  {
-    name: "companies",
-    identifier: "sales-companies",
-    create: "/scrumboard/sales/create/company/create",
-    meta: {
-      hide: true,
+      canDelete: true,
     },
   },
   {

@@ -3,7 +3,7 @@ import React, { type FC } from "react";
 import { CrownOutlined, StarOutlined, UserOutlined } from "@ant-design/icons";
 import { Tag, type TagProps } from "antd";
 
-import type { User } from "@/graphql/schema.types";
+import type { User } from "@/rest-api/schema.types";
 
 type Props = {
   role: User["role"];

@@ -8,7 +8,8 @@ export type Organization = {
     logo_url?: string;
   };
   metadata?: {
-    brand?: string;
+    avis?:string,
+    budget?:string,
     createdAt?: string;
     isBlocked?: string;
     [key: string]: string | undefined;
@@ -17,16 +18,28 @@ export type Organization = {
 
 export type Company = {
   id: string;
-  avatarUrl?: Maybe<Scalars["String"]["output"]>;
-  createdAt: Scalars["DateTime"]["output"];
+  cid: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
-  brands?: Maybe<Array<Scalars["String"]["output"]>>;
-  isBlocked?: Maybe<Scalars["Boolean"]["output"]>;
+  displayName?: Maybe<Scalars["String"]["output"]>;
   metadata?: Maybe<CompanyMetadata>;
+  totalRevenue?: Maybe<Scalars["Int"]["output"]>;
+  branding?: Maybe<{
+    logo_url?: string;
+  }>;
 };
 
 export type CompanyMetadata = {
-  brands?: Maybe<Array<Scalars["String"]["output"]>>;
+  avis?: boolean;
+  budget?:boolean
   createdAt?: Maybe<Scalars["Int"]["output"]>;
   isBlocked?: Maybe<Scalars["String"]["output"]>;
 };
+
+// Update the existing Company type or create a new one
+export interface CompanyFormFields extends Company {
+  avis?: boolean;
+  budget?: boolean
+  name: string;
+  displayName?: string;
+  logo?: string;
+}

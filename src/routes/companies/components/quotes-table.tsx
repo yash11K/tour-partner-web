@@ -14,8 +14,8 @@ import {
 import { Button, Card, Input, Select, Space, Table } from "antd";
 
 import { Participants, QuoteStatusTag, Text } from "@/components";
-import type { QuoteStatus } from "@/graphql/schema.types";
-import type { CompanyQuotesTableQuery } from "@/graphql/types";
+import type { QuoteStatus } from "@/rest-api/schema.types";
+import type { CompanyQuotesTableQuery } from "@/rest-api/types";
 import { useUsersSelect } from "@/hooks/useUsersSelect";
 import { currencyNumber } from "@/utilities";
 

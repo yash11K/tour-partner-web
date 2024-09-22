@@ -4,7 +4,7 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 
 import gql from "graphql-tag";
 
-import type { ContactsSelectQuery } from "@/graphql/types";
+import type { ContactsSelectQuery } from "@/rest-api/types";
 
 const CONTACTS_SELECT_QUERY = gql`
     query ContactsSelect(

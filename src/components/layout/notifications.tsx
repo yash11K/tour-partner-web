@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import type {
   NotificationsDealsQuery,
   NotificationsQuery,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 
 import { CustomAvatar } from "../custom-avatar";
 import { Text } from "../text";

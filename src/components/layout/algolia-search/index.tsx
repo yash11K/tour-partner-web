@@ -16,7 +16,7 @@ import type {
   Quote,
   Task,
   User,
-} from "@/graphql/schema.types";
+} from "@/rest-api/schema.types";
 
 import { CustomAvatar } from "../../custom-avatar";
 import styles from "./index.module.css";

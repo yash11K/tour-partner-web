@@ -33,7 +33,7 @@ import { SelectOptionWithAvatar } from "@/components";
 import type {
   CreateCompanyMutation,
   CreateCompanyMutationVariables,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 import { useUsersSelect } from "@/hooks/useUsersSelect";
 
 import { COMPANY_CREATE_MUTATION } from "./queries";

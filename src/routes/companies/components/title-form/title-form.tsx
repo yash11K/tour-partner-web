@@ -8,11 +8,11 @@ import { EditOutlined } from "@ant-design/icons";
 import { Button, Form, Select, Skeleton, Space } from "antd";
 
 import { CustomAvatar, SelectOptionWithAvatar, Text } from "@/components";
-import type { User } from "@/graphql/schema.types";
+import type { User } from "@/rest-api/schema.types";
 import type {
   CompanyTitleFormMutation,
   CompanyTitleFormMutationVariables,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 import { useUsersSelect } from "@/hooks/useUsersSelect";
 import { getNameInitials } from "@/utilities";
 

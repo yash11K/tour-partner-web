@@ -7,28 +7,20 @@ import { DeleteOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons";
 import { Button, Card, Dropdown, Space, Tooltip } from "antd";
 
 import { CustomAvatar, Text } from "@/components";
-import type { CompaniesTableQuery } from "@/graphql/types";
 import { currencyNumber } from "@/utilities";
 
 import { AvatarGroup } from "../../avatar-group";
 import { CompanyCardSkeleton } from "./skeleton";
+import { Company } from "@/rest-api/types";
+import { getOrganization } from "@/routes/companies/queries";
 
 type Props = {
-  company: GetFieldsFromList<CompaniesTableQuery> | null;
+  company: Company;
 };
 
 export const CompanyCard: FC<Props> = ({ company }) => {
   const { edit } = useNavigation();
   const { mutate } = useDelete();
-
-  if (!company) return <CompanyCardSkeleton />;
-
-  const relatedContactAvatars = company?.contacts?.nodes?.map((contact) => {
-    return {
-      name: contact.name,
-      src: contact.avatarUrl as string | undefined,
-    };
-  });
 
   return (
     <Card
@@ -53,13 +45,6 @@ export const CompanyCard: FC<Props> = ({ company }) => {
               gap: "6px",
             }}
           >
-            <Text size="xs">Related contacts</Text>
-            <AvatarGroup
-              size={"small"}
-              overlap
-              gap="4px"
-              avatars={relatedContactAvatars}
-            />
           </div>
           <div
             style={{
@@ -69,16 +54,6 @@ export const CompanyCard: FC<Props> = ({ company }) => {
               gap: "6px",
             }}
           >
-            <Text size="xs">Sales owner</Text>
-            <Tooltip
-              title={company.salesOwner?.name}
-              key={company.salesOwner?.id}
-            >
-              <CustomAvatar
-                name={company.salesOwner?.name}
-                src={company.salesOwner?.avatarUrl}
-              />
-            </Tooltip>
           </div>
         </div>,
       ]}
@@ -100,12 +75,12 @@ export const CompanyCard: FC<Props> = ({ company }) => {
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <EyeOutlined />,
                 onClick: () => {
-                  edit("companies", company.id);
+                  getOrganization(company.id);
                 },
               },
               {
                 danger: true,
-                label: "Delete company",
+                label: "Disable Partner",
                 key: "2",
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <DeleteOutlined />,
@@ -159,6 +134,7 @@ export const CompanyCard: FC<Props> = ({ company }) => {
         >
           {company.name}
         </Text>
+        <Text type="secondary">{company.brands}</Text>
 
         <Space
           direction="vertical"
@@ -168,7 +144,6 @@ export const CompanyCard: FC<Props> = ({ company }) => {
             alignItems: "center",
           }}
         >
-          <Text type="secondary">Open deals amount</Text>
           <Text
             strong
             size="md"
@@ -176,7 +151,7 @@ export const CompanyCard: FC<Props> = ({ company }) => {
               marginTop: "12px",
             }}
           >
-            {currencyNumber(company?.dealsAggregate?.[0].sum?.value || 0)}
+            {currencyNumber(5000)}
           </Text>
         </Space>
       </div>

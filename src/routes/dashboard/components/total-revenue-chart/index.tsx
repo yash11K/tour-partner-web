@@ -8,7 +8,7 @@ import type { GaugeConfig } from "@ant-design/plots";
 import { Card, Skeleton, Space } from "antd";
 
 import { Text } from "@/components";
-import type { DashboardTotalRevenueQuery } from "@/graphql/types";
+import type { DashboardTotalRevenueQuery } from "@/rest-api/types";
 import { currencyNumber } from "@/utilities";
 
 import { DASHBOARD_TOTAL_REVENUE_QUERY } from "./queries";

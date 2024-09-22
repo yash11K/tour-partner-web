@@ -1,6 +1,7 @@
-import { Card, Skeleton, Space } from "antd";
+import { Card, Skeleton, Space, Tag } from "antd";
 
 import { Text } from "@/components";
+
 
 export const CompanyCardSkeleton = () => {
   return (
@@ -26,25 +27,6 @@ export const CompanyCardSkeleton = () => {
               gap: "6px",
             }}
           >
-            <Text size="xs">Related contacts</Text>
-            <Space size={4}>
-              <Skeleton.Avatar active shape="circle" size="small" />
-              <Skeleton.Avatar active shape="circle" size="small" />
-              <Skeleton.Avatar active shape="circle" size="small" />
-            </Space>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              gap: "6px",
-            }}
-          >
-            <Text size="xs">Sales owner</Text>
-            <Space size={4}>
-              <Skeleton.Avatar active shape="circle" size="small" />
-            </Space>
           </div>
         </div>,
       ]}
@@ -96,6 +78,35 @@ export const CompanyCardSkeleton = () => {
               marginTop: "8px",
             }}
           />
+        </Space>
+        
+        {/* New elements for created at and brands */}
+        <Space
+          direction="vertical"
+          size={4}
+          style={{
+            width: "100%",
+            marginTop: "12px",
+          }}
+        >
+          <Text size="xs">Created at</Text>
+          <Text size="sm">Jan 1, 2023</Text>
+        </Space>
+        
+        <Space
+          direction="vertical"
+          size={4}
+          style={{
+            width: "100%",
+            marginTop: "12px",
+          }}
+        >
+          <Text size="xs">Brands</Text>
+          <Space size={4}>
+            <Tag color="blue">Brand A</Tag>
+            <Tag color="green">Brand B</Tag>
+            <Tag color="orange">Brand C</Tag>
+          </Space>
         </Space>
       </div>
     </Card>

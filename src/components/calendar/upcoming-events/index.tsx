@@ -8,7 +8,7 @@ import type { CardProps } from "antd";
 import { Button, Card, Skeleton as AntdSkeleton } from "antd";
 import dayjs from "dayjs";
 
-import type { UpcomingEventsQuery } from "@/graphql/types";
+import type { UpcomingEventsQuery } from "@/rest-api/types";
 
 import { Text } from "../../text";
 import { CalendarUpcomingEvent } from "./event";

@@ -1,15 +1,12 @@
 import { type FC, useMemo } from "react";
 
-import type { GetFieldsFromList } from "@refinedev/nestjs-query";
-
 import { List, type ListProps, type TableProps } from "antd";
 
 import { PaginationTotal } from "@/components";
-import type { CompaniesTableQuery } from "@/graphql/types";
+import { Company } from "@/rest-api/schema.types";
 
 import { CompanyCard, CompanyCardSkeleton } from "./card";
-
-type Company = GetFieldsFromList<CompaniesTableQuery>;
+import {Organization} from "@/rest-api/types";
 
 type Props = {
   tableProps: TableProps<Company>;
@@ -38,9 +35,17 @@ export const CompaniesCardView: FC<Props> = ({
         xl: 4,
       }}
       dataSource={data}
-      renderItem={(item) => (
+      renderItem={(item: Organization) => (
         <List.Item>
-          <CompanyCard company={item} />
+          <CompanyCard
+            company={{
+              id: item.id,
+              name: item.name,
+              avatarUrl: item.branding?.logo_url,
+              createdAt: item.metadata?.createdAt,
+              isBlocked: item.metadata?.isBlocked === "true",
+            }}
+          />
         </List.Item>
       )}
       pagination={{
@@ -55,7 +60,7 @@ export const CompaniesCardView: FC<Props> = ({
           setPageSize(pageSize);
         },
         showTotal: (total) => (
-          <PaginationTotal total={total} entityName="company" />
+          <PaginationTotal total={total} entityName="organization" />
         ),
       }}
     >

@@ -3,7 +3,7 @@ import type { GetFieldsFromList } from "@refinedev/nestjs-query";
 import type {
   NotificationsDealsQuery,
   NotificationsQuery,
-} from "@/graphql/types";
+} from "@/rest-api/types";
 
 import { Text } from "../text";
 
