@@ -1,3 +1,5 @@
+import { Company } from "./types";
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -137,29 +139,6 @@ export type CheckListItem = {
 export type ChecklistItemInput = {
   checked: Scalars["Boolean"]["input"];
   title: Scalars["String"]["input"];
-};
-
-export type Company = {
-  avatarUrl?: Maybe<Scalars["String"]["output"]>;
-  businessType?: Maybe<BusinessType>;
-  companySize?: Maybe<CompanySize>;
-  contacts: CompanyContactsConnection;
-  contactsAggregate: Array<CompanyContactsAggregateResponse>;
-  country?: Maybe<Scalars["String"]["output"]>;
-  createdAt: Scalars["DateTime"]["output"];
-  createdBy: User;
-  deals: CompanyDealsConnection;
-  dealsAggregate: Array<CompanyDealsAggregateResponse>;
-  id: Scalars["ID"]["output"];
-  industry?: Maybe<Industry>;
-  name: Scalars["String"]["output"];
-  notes: CompanyNotesConnection;
-  notesAggregate: Array<CompanyNotesAggregateResponse>;
-  salesOwner: User;
-  totalRevenue?: Maybe<Scalars["Int"]["output"]>;
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedBy?: Maybe<User>;
-  website?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type CompanyContactsArgs = {
