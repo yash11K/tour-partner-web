@@ -21,11 +21,11 @@ export const resources: IResourceItem[] = [
     },
   },
   {
-    name: "organizations",
-    list: "/organizations",
-    show: "/organizations/:id",
-    create: "/organizations/create",
-    edit: "/organizations/edit/:id",
+    name: "tour-partners",
+    list: "/tour-partners",
+    show: "/tour-partners/:id",
+    create: "/tour-partners/create",
+    edit: "/tour-partners/:id",
     meta: {
       label: "Tour Partners",
       // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66

@@ -41,8 +41,8 @@ export const CompanyTitleForm = () => {
         <CustomAvatar
           size="large"
           shape="square"
-          src={company?.avatarUrl}
-          name={getNameInitials(company?.name || "")}
+          src={company?.branding.logo_url}
+          name={getNameInitials(company?.display_name || "")}
           style={{
             width: 96,
             height: 96,
@@ -54,25 +54,17 @@ export const CompanyTitleForm = () => {
           }}
         />
         <Space direction="vertical" size={0}>
-          <Form.Item name="name" required noStyle>
+          <Form.Item name="display_name" required noStyle>
             <TitleInput
               loading={loading}
               onChange={(value) => {
                 return onFinish?.({
-                  name: value,
+                  display_name: value,
                 });
               }}
             />
           </Form.Item>
-          <SalesOwnerInput
-            salesOwner={company?.salesOwner}
-            loading={loading}
-            onChange={(value) => {
-              onFinish?.({
-                salesOwnerId: value,
-              });
-            }}
-          />
+          {/* Remove or update SalesOwnerInput as it's not present in the new API response */}
         </Space>
       </Space>
     </Form>
@@ -110,85 +102,4 @@ const TitleInput = ({
   );
 };
 
-const SalesOwnerInput = ({
-  salesOwner,
-  onChange,
-  loading,
-}: {
-  onChange?: (value: string) => void;
-  salesOwner?: Partial<User>;
-  loading?: boolean;
-}) => {
-  const [isEdit, setIsEdit] = useState(false);
-
-  const { selectProps, queryResult } = useUsersSelect();
-
-  return (
-    <div
-      className={styles.salesOwnerInput}
-      role="button"
-      onClick={() => {
-        setIsEdit(true);
-      }}
-    >
-      <Text
-        type="secondary"
-        style={{
-          marginRight: 12,
-        }}
-      >
-        Sales Owner:
-      </Text>
-      {loading && <Skeleton.Input size="small" style={{ width: 120 }} active />}
-      {!isEdit && !loading && (
-        <>
-          <CustomAvatar
-            size="small"
-            src={salesOwner?.avatarUrl}
-            style={{
-              marginRight: 4,
-            }}
-          />
-          <Text>{salesOwner?.name}</Text>
-          <Button
-            type="link"
-            // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-            icon={<EditOutlined className={styles.salesOwnerInputEditIcon} />}
-          />
-        </>
-      )}
-      {isEdit && !loading && (
-        <Form.Item name={["salesOwner", "id"]} noStyle>
-          <Select
-            {...selectProps}
-            defaultOpen={true}
-            autoFocus
-            onDropdownVisibleChange={(open) => {
-              if (!open) {
-                setIsEdit(false);
-              }
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(value, option) => {
-              onChange?.(value as unknown as string);
-              selectProps.onChange?.(value, option);
-            }}
-            options={
-              queryResult.data?.data?.map(({ id, name, avatarUrl }) => ({
-                value: id,
-                label: (
-                  <SelectOptionWithAvatar
-                    name={name}
-                    avatarUrl={avatarUrl ?? undefined}
-                  />
-                ),
-              })) ?? []
-            }
-          />
-        </Form.Item>
-      )}
-    </div>
-  );
-};
+// Remove or update SalesOwnerInput component as it's not present in the new API response

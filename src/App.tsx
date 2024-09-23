@@ -88,7 +88,7 @@ const App: React.FC = () => {
                     >
                     </Route>
                     <Route
-                      path="/organizations/:id"
+                      path="/tour-partners/:id"
                       element={<CompanyEditPage />}
                     />
                     <Route path="/administration" element={<Outlet />}>

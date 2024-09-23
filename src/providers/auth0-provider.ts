@@ -3,16 +3,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 const useAuth0Provider = (): AuthProvider => {
-    const { isLoading, isAuthenticated, user, logout, getIdTokenClaims } = useAuth0();
+    const { isLoading, isAuthenticated, user, logout, getAccessTokenSilently } = useAuth0();
 
     const authProvider: AuthProvider = {
         login: async () => {
+            const token = await getAccessTokenSilently();
+            localStorage.setItem('auth_token', token);
             return {
                 success: true,
             };
         },
         logout: async () => {
             logout({ logoutParams: { returnTo: window.location.origin } });
+            localStorage.removeItem('auth_token');
             return {
                 success: true,
             };
@@ -23,10 +26,10 @@ const useAuth0Provider = (): AuthProvider => {
         },
         check: async () => {
             try {
-                const token = await getIdTokenClaims();
+                const token = await getAccessTokenSilently();
                 if (token) {
                     axios.defaults.headers.common = {
-                        Authorization: `Bearer ${token.__raw}`,
+                        Authorization: `Bearer ${token}`,
                     };
                     return {
                         authenticated: true,
@@ -62,7 +65,9 @@ const useAuth0Provider = (): AuthProvider => {
         },
     };
 
-    getIdTokenClaims().then((token) => {
+    const { getIdTokenClaims } = useAuth0();
+
+    getIdTokenClaims().then((token: any) => {
         if (token) {
             axios.defaults.headers.common = {
                 Authorization: `Bearer ${token.__raw}`,

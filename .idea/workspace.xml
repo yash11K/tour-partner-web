@@ -6,44 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="42de3d8c-f02d-4456-99ec-a63a8e766700" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/upcoming-events/event/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/upcoming-events/event/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/calendar/upcoming-events/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/upcoming-events/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/account-settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/account-settings/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/notification-message.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/notification-message.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/notifications.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/notifications.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/list-title-button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/list-title-button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/participants/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/participants/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tags/user-tag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tags/user-tag.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useCompaniesSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCompaniesSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useContactsSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useContactsSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useDealStagesSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useDealStagesSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useUsersSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useUsersSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/data/refresh-token.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/data/refresh-token.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rest-api/schema.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest-api/schema.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rest-api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest-api/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/administration/audit-log.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/administration/audit-log.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/administration/settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/administration/settings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/card-view/card/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/card-view/card/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/card-view/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/card-view/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/contacts-table.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/deals-table.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/info-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/info-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/notes.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/quotes-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/quotes-table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/components/table-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/table-view.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icon/TextIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/icon/TextIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/sider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/sider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/resources.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/resources.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/auth0-provider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/auth0-provider.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/components/title-form/title-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/components/title-form/title-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/create.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/edit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/edit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/companies/list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/list.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/companies/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/companies/queries.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/deals-chart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/deals-chart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/latest-activities/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/latest-activities/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/tasks-chart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/tasks-chart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/dashboard/components/total-revenue-chart/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/dashboard/components/total-revenue-chart/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/register.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +112,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726988729083</updated>
-      <workItem from="1726988730871" duration="17867000" />
+      <workItem from="1726988730871" duration="20549000" />
     </task>
     <servers />
   </component>
@@ -152,25 +124,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/routes/companies/queries.ts</url>
-          <line>15</line>
+          <line>28</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/routes/companies/queries.ts</url>
-          <line>11</line>
+          <line>24</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
-          <line>137</line>
+          <line>134</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
-          <line>138</line>
+          <line>135</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
@@ -197,7 +169,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/routes/companies/list.tsx</url>
-          <line>158</line>
+          <line>166</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
