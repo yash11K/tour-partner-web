@@ -22,7 +22,7 @@ module.exports = {
       },
     ],
   },
-  displayName: "app-crm",
+  displayName: "tour-web",
   coveragePathIgnorePatterns: [
     "<rootDir>/src/main.tsx",
     "<rootDir>/src/interfaces/",

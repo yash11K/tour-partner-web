@@ -33,6 +33,7 @@ import "./styles/antd.css";
 import "./styles/fc.css";
 import "./styles/index.css";
 import useAuth0Provider from "./providers/auth0-provider";
+import {axiosInstanceMy} from "@/providers/data/axios";
 
 
 const API_URL = "http://localhost:8080";
@@ -54,7 +55,7 @@ const App: React.FC = () => {
             <DevtoolsProvider>
               <Refine
                 authProvider={authProvider}
-                dataProvider={dataProvider("http://localhost:8080")}
+                dataProvider={dataProvider("http://localhost:8080",axiosInstanceMy)}
                 routerProvider={routerProvider}
                 resources={resources}
                 notificationProvider={useNotificationProvider}

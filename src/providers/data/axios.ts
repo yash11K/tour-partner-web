@@ -2,14 +2,14 @@ import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 
 import { refreshTokens, shouldRefreshToken } from "./refresh-token";
 
-export const axiosInstance = axios.create({
+export const axiosInstanceMy = axios.create({
   headers: {
     "Content-Type": "application/json, text/plain, */*",
     "Apollo-Require-Preflight": "true",
   },
 });
 
-axiosInstance.interceptors.request.use(
+axiosInstanceMy.interceptors.request.use(
   async (config) => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken && config?.headers) {
@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-axiosInstance.interceptors.response.use(
+axiosInstanceMy.interceptors.response.use(
   async (response) => {
     convertAxiosToFetchResponse(response);
 
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
         if (!tokens) throw errors;
 
         originalRequest._retry = true;
-        return axiosInstance(originalRequest);
+        return axiosInstanceMy(originalRequest);
       }
 
       SetResponseOk(response, false);
