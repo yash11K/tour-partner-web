@@ -1,33 +1,18 @@
 import React from "react";
-import { useOne } from "@refinedev/core";
 import { Card, Space, Image } from "antd";
 import { Text } from "@/components";
-import type { Company } from "@/rest-api/schema.types";
+import { Organization } from "@/rest-api/types";
 import { currencyNumber } from "@/utilities";
 import { ShopOutlined } from "@ant-design/icons";
+import { UserTable } from "./user-table";
 
-export const CompanyInfoForm: React.FC = () => {
-  const { data, isLoading } = useOne<Company>({
-    resource: "companies",
-    id: "current", // Assuming we're fetching the current company
-  });
-
-  const companyData = data?.data;
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!companyData) {
-    return <div>No company data available</div>;
-  }
-
+export const CompanyInfoForm: React.FC<{ organization: Organization }> = ({ organization }) => {
   return (
     <Card
       title={
         <Space size={15}>
           <ShopOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-          <Text>Company Info</Text>
+          <Text>{organization.display_name}</Text>
         </Space>
       }
       headStyle={{
@@ -37,41 +22,48 @@ export const CompanyInfoForm: React.FC = () => {
         padding: "1rem",
       }}
       style={{
+        width: "100%",
         maxWidth: "500px",
+        color: "red",
       }}
     >
-      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+      <Space direction="vertical" size="middle" style={{ display: 'flex', width: '100%' }}>
+        <InfoItem label="Name" value={organization.display_name ?? ''} />
+        <InfoItem label="cid" value={organization.name ?? ''} />
+        <InfoItem label="Revenue" value={currencyNumber(5000)} />
         <div>
-          <Text strong>Company Name:</Text> {companyData.name}
-        </div>
-        <div>
-          <Text strong>CID:</Text> {companyData.id}
-        </div>
-        <div>
-          <Text strong>Revenue:</Text> {currencyNumber(companyData.totalRevenue || 5000)}
-        </div>
-        <div>
-          <Text strong>Brands:</Text>
-          <Space>
-            {companyData.metadata?.avis && (
-              <Image
-                src="/public/avis.com.png"
-                alt="Avis"
-                width={100}
-                preview={false}
-              />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '12px' }}>
+            {organization.metadata?.Avis === "true" && (
+              <BrandLogo src="/public/avis.com.png" alt="Avis" />
             )}
-            {companyData.metadata?.budget && (
-              <Image
-                src="/public/budget.com.png"
-                alt="Budget"
-                width={100}
-                preview={false}
-              />
+            {organization.metadata?.Budget === "true" && (
+              <BrandLogo src="/public/budget.com.png" alt="Budget" />
             )}
-          </Space>
+          </div>
         </div>
       </Space>
     </Card>
   );
 };
+
+const InfoItem: React.FC<{ label: string; value: string | number }> = ({ label, value }) => (
+  <div style={{ wordBreak: 'break-word' }}>
+    <Text strong>{label}:</Text> {value}
+  </div
+  >
+);
+
+const BrandLogo: React.FC<{ src: string; alt: string }> = ({ src, alt }) => (
+  <div style={{ width: 64, height: 64, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+    <Image
+      src={src}
+      alt={alt}
+      width={64}
+      height={64}
+      preview={false}
+      style={{ objectFit: 'contain' }}
+    />
+  </div>
+);
+
+export default CompanyInfoForm;

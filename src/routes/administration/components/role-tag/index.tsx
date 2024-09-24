@@ -11,7 +11,7 @@ type Props = {
 
 export const RoleTag: FC<Props> = ({ role }) => {
   const variants: {
-    [key in User["role"]]: {
+    [key in NonNullable<User["role"]>]: {
       color: TagProps["color"];
       icon: React.ReactNode;
     };
@@ -38,15 +38,15 @@ export const RoleTag: FC<Props> = ({ role }) => {
     },
   };
 
-  const text = role.replace("_", " ").toLowerCase();
+  const text = role?.replace("_", " ").toLowerCase() ?? "";
 
   return (
     <Tag
       style={{
         textTransform: "capitalize",
       }}
-      color={variants[role].color}
-      icon={variants[role].icon}
+      color={variants[role ?? ""].color}
+      icon={variants[role ?? ""].icon}
     >
       {text}
     </Tag>

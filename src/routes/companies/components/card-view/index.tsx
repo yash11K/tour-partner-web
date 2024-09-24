@@ -3,7 +3,6 @@ import { type FC, useMemo } from "react";
 import { List, type ListProps, type TableProps } from "antd";
 
 import { PaginationTotal } from "@/components";
-import { Company } from "@/rest-api/schema.types";
 
 import { CompanyCard, CompanyCardSkeleton } from "./card";
 import {Organization} from "@/rest-api/types";
@@ -53,7 +52,7 @@ export const CompaniesCardView: FC<Props> = ({
         </List.Item>
       )}
       pagination={{
-        ...(pagination as ListProps<Company>["pagination"]),
+        ...(pagination as ListProps<Organization>["pagination"]),
         hideOnSinglePage: true,
         itemRender: undefined,
         position: "bottom",

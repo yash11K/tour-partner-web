@@ -63,9 +63,6 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
     pagination: {
       pageSize: 12,
     },
-    meta: {
-      loader: getOrganizations,
-    },
   });
 
   const onViewChange = (value: View) => {

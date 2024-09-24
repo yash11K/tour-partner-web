@@ -7,6 +7,8 @@ export type Organization = {
   branding?: {
     logo_url?: string;
   };
+
+  //Not using {@CompanyMetadata because dynamic keyvalue pair feature was giving errors}
   metadata?: {
     avis?:string,
     budget?:string,
@@ -16,18 +18,6 @@ export type Organization = {
   };
 };
 
-export type Company = {
-  id: string;
-  cid: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-  displayName?: Maybe<Scalars["String"]["output"]>;
-  metadata?: Maybe<CompanyMetadata>;
-  totalRevenue?: Maybe<Scalars["Int"]["output"]>;
-  branding?: Maybe<{
-    logo_url?: string;
-  }>;
-};
-
 export type CompanyMetadata = {
   avis?: boolean;
   budget?:boolean
@@ -35,11 +25,12 @@ export type CompanyMetadata = {
   isBlocked?: Maybe<Scalars["String"]["output"]>;
 };
 
-// Update the existing Company type or create a new one
-export interface CompanyFormFields extends Company {
-  avis?: boolean;
-  budget?: boolean
+export type OrganizationMember = {
+  id: string;
   name: string;
-  displayName?: string;
-  logo?: string;
-}
+  email: string;
+  role: string;
+  // Add other user properties as needed
+};
+
+// Update the existing Company type or create a new one

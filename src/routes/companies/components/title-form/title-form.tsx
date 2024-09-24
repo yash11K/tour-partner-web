@@ -1,48 +1,34 @@
-import { useState } from "react";
-
 import { useForm } from "@refinedev/antd";
 import type { HttpError } from "@refinedev/core";
-import type { GetFields, GetVariables } from "@refinedev/nestjs-query";
 
 import { EditOutlined } from "@ant-design/icons";
 import { Button, Form, Select, Skeleton, Space } from "antd";
 
-import { CustomAvatar, SelectOptionWithAvatar, Text } from "@/components";
-import { useUsersSelect } from "@/hooks/useUsersSelect";
-import type { User } from "@/rest-api/schema.types";
-import { getNameInitials } from "@/utilities";
+import { CustomAvatar, Text } from "@/components";
 
-import { COMPANY_TITLE_FORM_MUTATION, COMPANY_TITLE_QUERY } from "./queries";
 import styles from "./title-form.module.css";
+import { Organization } from "@/rest-api/types";
 
-export const CompanyTitleForm = () => {
+export const CompanyTitleForm = ({ id, organization }: { id: string; organization: Organization }) => {
   const {
     formProps,
-    query: queryResult,
     onFinish,
   } = useForm<
-    GetFields<any>,
-    HttpError,
-    GetVariables<any>
+    Organization,
+    HttpError
   >({
     redirect: false,
-    meta: {
-      gqlMutation: COMPANY_TITLE_FORM_MUTATION,
-      gqlQuery: COMPANY_TITLE_QUERY,
-    },
+    id: id,
   });
 
-  const company = queryResult?.data?.data;
-  const loading = queryResult?.isLoading;
-
   return (
-    <Form {...formProps}>
+    <Form {...formProps} initialValues={organization}>
       <Space size={16}>
         <CustomAvatar
           size="large"
           shape="square"
-          src={company?.branding.logo_url}
-          name={getNameInitials(company?.display_name || "")}
+          src={organization?.branding?.logo_url}
+          name={organization?.display_name}
           style={{
             width: 96,
             height: 96,
@@ -56,7 +42,6 @@ export const CompanyTitleForm = () => {
         <Space direction="vertical" size={0}>
           <Form.Item name="display_name" required noStyle>
             <TitleInput
-              loading={loading}
               onChange={(value) => {
                 return onFinish?.({
                   display_name: value,
@@ -64,7 +49,6 @@ export const CompanyTitleForm = () => {
               }}
             />
           </Form.Item>
-          {/* Remove or update SalesOwnerInput as it's not present in the new API response */}
         </Space>
       </Space>
     </Form>
@@ -101,5 +85,3 @@ const TitleInput = ({
     </Text>
   );
 };
-
-// Remove or update SalesOwnerInput component as it's not present in the new API response

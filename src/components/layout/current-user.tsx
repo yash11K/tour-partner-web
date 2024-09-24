@@ -76,7 +76,7 @@ export const CurrentUser: React.FC = () => {
       >
         <CustomAvatar
           name={user?.name}
-          src={user?.avatarUrl}
+          src={user?.picture}
           size="default"
           style={{ cursor: "pointer" }}
         />
@@ -85,7 +85,7 @@ export const CurrentUser: React.FC = () => {
         <AccountSettings
           opened={opened}
           setOpened={setOpened}
-          userId={user.id}
+          userId={user.user_id}
         />
       )}
     </>

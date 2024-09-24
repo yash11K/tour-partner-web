@@ -1,5 +1,5 @@
-import {Company, Organization} from "@/rest-api/types";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Organization} from "@/rest-api/types";
+import {User} from "@/rest-api/schema.types";
 
 export const getOrganizations = async (): Promise<{ organizations: { totalCount: number, nodes: Organization[]} }> => {
     console.log("getOrganizations function called");
@@ -61,7 +61,6 @@ export const getOrganization = async (id: string): Promise<{ company: Organizati
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getToken()}`, // Assuming a getToken function exists
         },
     });
 
@@ -74,8 +73,7 @@ export const getOrganization = async (id: string): Promise<{ company: Organizati
     return { company: data };
 };
 
-export const COMPANY_CREATE_MUTATION = createOrganization;
-function getToken() {
-    throw new Error("Function not implemented.");
-}
-
+// export const getOrganizationMembers = async (id: string): Promise<{users : User[]}> => {
+//     const response = await fetch()
+//     return {users : data}
+// }
