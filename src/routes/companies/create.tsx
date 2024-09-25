@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Switch, message, Button, Row, Col, Image, Space } from 'antd';
 import { createOrganization } from './queries';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 interface NewOrganizationModalProps {
   visible: boolean;
@@ -18,6 +19,44 @@ export const NewOrganizationModal: React.FC<NewOrganizationModalProps> = ({
   const [logoUrl, setLogoUrl] = useState('');
   const [showAvisLogo, setShowAvisLogo] = useState(false);
   const [showBudgetLogo, setShowBudgetLogo] = useState(false);
+  const [isFormDirty, setIsFormDirty] = useState(false);
+
+  useEffect(() => {
+    form.setFields([]);
+    setLogoUrl('');
+    setShowAvisLogo(false);
+    setShowBudgetLogo(false);
+    setIsFormDirty(false);
+  }, [visible]);
+
+  const handleFormChange = () => {
+    setIsFormDirty(true);
+  };
+
+  const handleCancel = () => {
+    if (isFormDirty) {
+      Modal.confirm({
+        title: 'Unsaved Changes',
+        icon: <ExclamationCircleOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+        content: 'You have unsaved changes. Are you sure you want to close this modal?',
+        onOk: () => {
+          clearForm();
+          onCancel();
+        },
+      });
+    } else {
+      clearForm();
+      onCancel();
+    }
+  };
+
+  const clearForm = () => {
+    form.resetFields();
+    setLogoUrl('');
+    setShowAvisLogo(false);
+    setShowBudgetLogo(false);
+    setIsFormDirty(false);
+  };
 
   const handleSubmit = async () => {
     try {
@@ -48,10 +87,7 @@ export const NewOrganizationModal: React.FC<NewOrganizationModalProps> = ({
 
       await createOrganization(newOrganization);
       message.success('Organization created successfully');
-      form.resetFields();
-      setLogoUrl('');
-      setShowAvisLogo(false);
-      setShowBudgetLogo(false);
+      clearForm();
       onSuccess();
     } catch (error) {
       console.error('Failed to create organization:', error);
@@ -63,11 +99,12 @@ export const NewOrganizationModal: React.FC<NewOrganizationModalProps> = ({
     <Modal
       title="Register New Partner"
       visible={visible}
-      onCancel={onCancel}
+      onCancel={handleCancel}
       onOk={handleSubmit}
       width={800}
+      maskClosable={false}
     >
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onValuesChange={handleFormChange}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item

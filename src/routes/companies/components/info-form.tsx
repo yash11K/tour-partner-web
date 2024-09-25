@@ -1,10 +1,12 @@
 import React from "react";
-import { Card, Space, Image } from "antd";
+
+import { ShopOutlined } from "@ant-design/icons";
+import { Card, Image,Space } from "antd";
+
 import { Text } from "@/components";
 import { Organization } from "@/rest-api/types";
 import { currencyNumber } from "@/utilities";
-import { ShopOutlined } from "@ant-design/icons";
-import { UserTable } from "./user-table";
+
 
 export const CompanyInfoForm: React.FC<{ organization: Organization }> = ({ organization }) => {
   return (
@@ -34,10 +36,10 @@ export const CompanyInfoForm: React.FC<{ organization: Organization }> = ({ orga
         <div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '12px' }}>
             {organization.metadata?.Avis === "true" && (
-              <BrandLogo src="/public/avis.com.png" alt="Avis" />
+              <BrandLogo src="/Avis_red.png" alt="Avis" />
             )}
             {organization.metadata?.Budget === "true" && (
-              <BrandLogo src="/public/budget.com.png" alt="Budget" />
+              <BrandLogo src="/Budget_blue.png" alt="Budget" />
             )}
           </div>
         </div>

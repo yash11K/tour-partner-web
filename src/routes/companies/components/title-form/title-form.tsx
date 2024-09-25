@@ -29,14 +29,11 @@ export const CompanyTitleForm = ({ id, organization }: { id: string; organizatio
           shape="square"
           src={organization?.branding?.logo_url}
           name={organization?.display_name}
+          objectFit="contain"
           style={{
-            width: 96,
-            height: 96,
+            width: 196,
+            height: 196,
             fontSize: 48,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "none",
           }}
         />
         <Space direction="vertical" size={0}>

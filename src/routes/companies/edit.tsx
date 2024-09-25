@@ -20,14 +20,6 @@ export const CompanyEdit: React.FC = () => {
   }
 
   return (
-    // <Row gutter={[16, 16]}>
-    //   <Col xs={24} lg={16}>
-    //     <UserTable organization={organization} />
-    //   </Col>
-    //   <Col xs={24} lg={8}>
-    //     <CompanyInfoForm organization={organization} />
-    //   </Col>
-    // </Row>
     <div className="page-container">
     <CompanyTitleForm id={id ? id : ''} organization={organization} />
     <Row

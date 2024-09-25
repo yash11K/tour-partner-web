@@ -16,7 +16,7 @@ import { NewOrganizationModal } from "./create";
 type View = "card" | "table";
 
 export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
-  const [view, setView] = useState<View>("card");
+  const [view, setView] = useState<View>("table"); // Changed default to "table"
   const [isModalVisible, setIsModalVisible] = useState(false);
   const screens = Grid.useBreakpoint();
 

@@ -110,18 +110,16 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => 
             {record.metadata?.Avis === "true" && (
               <div
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
+                  width: 50,
+                  height: 50,
                   overflow: 'hidden',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  background: '#f0f0f0',
                 }}
               >
                 <img
-                  src="/public/avis.com.png"
+                  src="/Avis_red.png"
                   alt="Avis"
                   style={{
                     width: '100%',
@@ -134,18 +132,16 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => 
             {record.metadata?.Budget === "true" && (
               <div
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
+                  width: 50,
+                  height: 50,
                   overflow: 'hidden',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  background: '#f0f0f0',
                 }}
               >
                 <img
-                  src="/public/budget.com.png"
+                  src="/Budget_blue.png"
                   alt="Budget"
                   style={{
                     width: '100%',
