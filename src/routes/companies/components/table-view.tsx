@@ -1,21 +1,20 @@
 import type { FC } from "react";
 
-import { DeleteButton, EditButton, FilterDropdown } from "@refinedev/antd";
+import { EditButton, FilterDropdown } from "@refinedev/antd";
 import {
   type CrudFilters,
   type CrudSorting,
   getDefaultFilter,
 } from "@refinedev/core";
 
-import { EyeOutlined, SearchOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Input, Select, Space, Table, type TableProps } from "antd";
-import { Typography } from 'antd';
+import { EyeOutlined, PlusOutlined,SearchOutlined } from "@ant-design/icons";
+import { Button, Input, Space, Table, type TableProps } from "antd";
+import { Tag,Typography  } from 'antd';
 import dayjs from 'dayjs';
-import { Tag } from 'antd';
 
 import { CustomAvatar, PaginationTotal, Text } from "@/components";
-import { currencyNumber } from "@/utilities";
 import { Organization } from "@/rest-api/types";
+import { currencyNumber } from "@/utilities";
 
 type Company = {
   id: string;
@@ -29,10 +28,10 @@ type Company = {
 };
 
 type Props = {
-  tableProps: TableProps<Company>;
+  tableProps: TableProps<Organization>;
   filters: CrudFilters;
   sorters: CrudSorting;
-  data?: Company[]; // Add this line
+  data?: Organization[]; // Add this line
 };
 
 export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => {
@@ -192,11 +191,14 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => 
       <Table.Column<Organization>
         dataIndex={["metadata", "isBlocked"]}
         title="Status"
-        render={(isBlocked) => (
-          <Tag color={isBlocked ? "red" : "green"}>
-            {isBlocked ? "Blocked" : "Active"}
-          </Tag>
-        )}
+        render={(isBlocked) => {
+          const blocked = isBlocked === "true";
+          return (
+            <Tag color={blocked ? "red" : "green"}>
+              {blocked ? "Blocked" : "Active"}
+            </Tag>
+          );
+        }}
       />
     </Table>
   );
