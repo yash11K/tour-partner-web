@@ -333,7 +333,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                         <Button 
                             type="link" 
                             danger={!isCurrentlyBlocked} 
-                            icon={<DeleteOutlined />}
+                            icon={<DeleteOutlined onPointerEnterCapture={onpointerenter} onPointerLeaveCapture={onpointerleave} />}
                         >
                             {isCurrentlyBlocked ? "Enable" : "Disable"}
                         </Button>

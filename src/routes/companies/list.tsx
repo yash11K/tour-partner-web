@@ -155,9 +155,6 @@ export const CompanyListPage: FC<PropsWithChildren> = ({ children }) => {
       <NewOrganizationModal
         visible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
-        onSuccess={() => {
-          setIsModalVisible(false);
-        }}
       />
     </div>
   );

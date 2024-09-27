@@ -3,7 +3,7 @@ import type { CustomIconComponentProps } from "@ant-design/icons/lib/components/
 
 export const TextIconSvg = () => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns={"https://www.avisbudgetgroup.com/wp-content/uploads/2022/07/abg-logo-vector.svg"}
     width="12"
     height="12"
     viewBox="0 0 12 12"

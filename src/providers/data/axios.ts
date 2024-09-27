@@ -14,6 +14,7 @@ axiosInstanceMy.interceptors.request.use(
     const accessToken = localStorage.getItem("access_token");
     if (accessToken && config?.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers["Content-Type"] = "application/json";
     }
     return config;
   },

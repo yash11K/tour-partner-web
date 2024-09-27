@@ -7,14 +7,12 @@ import { Col, Row } from "antd";
 import { CalendarUpcomingEvents } from "@/components";
 
 import {
-  CompaniesMap,
   DashboardDealsChart,
   DashboardLatestActivities,
-  DashboardTasksChart,
   DashboardTotalCountCard,
   DashboardTotalRevenueChart,
 } from "./components";
-import { DASHBOARD_TOTAL_COUNTS_QUERY } from "./queries";
+import { AuditLogPage } from "../administration";
 
 export const DashboardPage: React.FC = () => {
   const isLoading = false;
@@ -79,12 +77,6 @@ export const DashboardPage: React.FC = () => {
           marginTop: "32px",
         }}
       >
-        <Col xs={24} sm={24} xl={14} xxl={16}>
-          <DashboardLatestActivities />
-        </Col>
-        <Col xs={24} sm={24} xl={10} xxl={8}>
-          <CalendarUpcomingEvents showGoToListButton />
-        </Col>
       </Row>
 
       <Row
@@ -101,7 +93,6 @@ export const DashboardPage: React.FC = () => {
             height: "448px",
           }}
         >
-          <DashboardTasksChart />
         </Col>
         <Col
           xs={24}
@@ -111,7 +102,6 @@ export const DashboardPage: React.FC = () => {
             height: "448px",
           }}
         >
-          <CompaniesMap />
         </Col>
       </Row>
     </div>

@@ -72,8 +72,3 @@ export const getOrganization = async (id: string): Promise<{ company: Organizati
 
     return { company: data };
 };
-
-// export const getOrganizationMembers = async (id: string): Promise<{users : User[]}> => {
-//     const response = await fetch()
-//     return {users : data}
-// }

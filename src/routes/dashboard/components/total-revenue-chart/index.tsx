@@ -1,88 +1,25 @@
-import React, { Suspense } from "react";
-
-import { useList } from "@refinedev/core";
-import type { GetFieldsFromList } from "@refinedev/nestjs-query";
-
+import React, { Suspense, useMemo } from "react";
 import { DollarOutlined } from "@ant-design/icons";
 import type { GaugeConfig } from "@ant-design/plots";
-import { Card, Skeleton, Space } from "antd";
-
+import { Card, Space } from "antd";
 import { Text } from "@/components";
 import { currencyNumber } from "@/utilities";
 
-import { DASHBOARD_TOTAL_REVENUE_QUERY } from "./queries";
-
 const Gauge = React.lazy(() => import("@ant-design/plots/es/components/gauge"));
 
-type DealStage = GetFieldsFromList<any>;
-
 export const DashboardTotalRevenueChart: React.FC = () => {
-  const {
-    data: expectedRevenueData,
-    isError: expectedRevenueIsError,
-    error: expectedRevenueError,
-    isLoading: expectedRevenueIsLoading,
-  } = useList<DealStage>({
-    resource: "dealStages",
-    filters: [
-      {
-        field: "title",
-        operator: "nin",
-        value: ["WON", "LOST"],
-      },
-    ],
-    meta: {
-      gqlQuery: DASHBOARD_TOTAL_REVENUE_QUERY,
-    },
-  });
-
-  const {
-    data: realizedRevenueData,
-    isError: realizedRevenueIsError,
-    error: realizedRevenueError,
-    isLoading: realizedRevenueIsLoading,
-  } = useList<DealStage>({
-    resource: "dealStages",
-    filters: [
-      {
-        field: "title",
-        operator: "eq",
-        value: "WON",
-      },
-    ],
-    meta: {
-      gqlQuery: DASHBOARD_TOTAL_REVENUE_QUERY,
-    },
-  });
-
-  if (expectedRevenueIsError || realizedRevenueIsError) {
-    console.error(
-      "Error fetching dashboard data",
-      expectedRevenueError,
-      realizedRevenueError,
-    );
-    return null;
-  }
-
-  const totalRealizationRevenue = (realizedRevenueData?.data || []).map(
-    (item) => item.dealsAggregate?.[0]?.sum?.value,
-  )[0];
-
-  const totalExpectedRevenue = (expectedRevenueData?.data || []).reduce(
-    (prev, curr) => prev + (curr?.dealsAggregate?.[0]?.sum?.value ?? 0),
-    0,
-  );
-
-  const realizationPercentageOfExpected =
-    totalRealizationRevenue && totalExpectedRevenue
-      ? (totalRealizationRevenue / totalExpectedRevenue) * 100
-      : 0;
+  // Default data
+  const defaultData = useMemo(() => {
+    const totalExpectedRevenue = 1000000; // $1,000,000
+    const totalRealizationRevenue = 750000; // $750,000
+    const realizationPercentageOfExpected = (totalRealizationRevenue / totalExpectedRevenue) * 100;
+    return { totalExpectedRevenue, totalRealizationRevenue, realizationPercentageOfExpected };
+  }, []);
 
   const config: GaugeConfig = {
-    animation: !(expectedRevenueIsLoading || realizedRevenueIsLoading),
+    animation: true,
     supportCSSTransform: true,
-    // antd expects a percentage value between 0 and 1
-    percent: realizationPercentageOfExpected / 100,
+    percent: defaultData.realizationPercentageOfExpected / 100,
     range: {
       color: "l(0) 0:#D9F7BE 1:#52C41A",
     },
@@ -150,13 +87,12 @@ export const DashboardTotalRevenueChart: React.FC = () => {
             gap: "8px",
           }}
         >
-          {/* @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66 */}
-          <DollarOutlined />
+          <DollarOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           <Text size="sm">Total revenue (yearly)</Text>
         </div>
       }
     >
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <Gauge {...config} padding={0} width={280} height={280} />
       </Suspense>
 
@@ -170,51 +106,29 @@ export const DashboardTotalRevenueChart: React.FC = () => {
           <Text size="xs" className="secondary">
             Expected
           </Text>
-          {!expectedRevenueIsLoading || !realizedRevenueIsLoading ? (
-            <Text
-              size="md"
-              className="primary"
-              style={{
-                minWidth: "100px",
-              }}
-            >
-              {currencyNumber(totalExpectedRevenue || 0)}
-            </Text>
-          ) : (
-            <Skeleton.Button
-              style={{
-                width: "100px",
-                height: "16px",
-                marginTop: "6px",
-              }}
-              active={true}
-            />
-          )}
+          <Text
+            size="md"
+            className="primary"
+            style={{
+              minWidth: "100px",
+            }}
+          >
+            {currencyNumber(defaultData.totalExpectedRevenue)}
+          </Text>
         </Space>
         <Space direction="vertical" size={0}>
           <Text size="xs" className="secondary">
             Realized
           </Text>
-          {!expectedRevenueIsLoading || !realizedRevenueIsLoading ? (
-            <Text
-              size="md"
-              className="primary"
-              style={{
-                minWidth: "100px",
-              }}
-            >
-              {currencyNumber(totalRealizationRevenue || 0)}
-            </Text>
-          ) : (
-            <Skeleton.Button
-              style={{
-                width: "100px",
-                height: "16px",
-                marginTop: "6px",
-              }}
-              active={true}
-            />
-          )}
+          <Text
+            size="md"
+            className="primary"
+            style={{
+              minWidth: "100px",
+            }}
+          >
+            {currencyNumber(defaultData.totalRealizationRevenue)}
+          </Text>
         </Space>
       </div>
     </Card>

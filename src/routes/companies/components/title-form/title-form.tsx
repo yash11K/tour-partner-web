@@ -5,9 +5,10 @@ import { EditOutlined } from "@ant-design/icons";
 import { Button, Form, Select, Skeleton, Space } from "antd";
 
 import { CustomAvatar, Text } from "@/components";
+import { Organization } from "@/rest-api/types";
 
 import styles from "./title-form.module.css";
-import { Organization } from "@/rest-api/types";
+import { valueType } from "antd/es/statistic/utils";
 
 export const CompanyTitleForm = ({ id, organization }: { id: string; organization: Organization }) => {
   const {
@@ -19,6 +20,8 @@ export const CompanyTitleForm = ({ id, organization }: { id: string; organizatio
   >({
     redirect: false,
     id: id,
+    resource: "organizations",  
+    action: "edit", // Add this line to specify the action
   });
 
   return (
@@ -59,7 +62,9 @@ const TitleInput = ({
 }: {
   // value is set by <Form.Item />
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string) => {
+    
+  };
   loading?: boolean;
 }) => {
   return (

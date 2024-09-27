@@ -5,7 +5,7 @@ import { CSSRules } from "./styles";
 const GlowSmall = ({ style, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns={"https://www.avisbudgetgroup.com/wp-content/uploads/2022/07/abg-logo-vector.svg"}
       width={80}
       height={40}
       fill="none"
@@ -35,7 +35,7 @@ const GlowSmall = ({ style, ...props }: SVGProps<SVGSVGElement>) => {
 
 const GlowBig = ({ style, ...props }: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns={"https://www.avisbudgetgroup.com/wp-content/uploads/2022/07/abg-logo-vector.svg"}
     width={120}
     height={48}
     fill="none"
