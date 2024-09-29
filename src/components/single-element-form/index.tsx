@@ -1,4 +1,5 @@
 import React from "react";
+import { useUserRole } from "../../hooks/useUserRole";
 
 import type { UseFormProps } from "@refinedev/antd";
 import { useForm } from "@refinedev/antd";
@@ -23,6 +24,7 @@ type SingleElementFormProps = {
   style?: React.CSSProperties;
   useFormProps?: UseFormProps;
   formProps?: FormProps;
+  allowedRoles?: string[]; // Optional prop to specify allowed roles
 } & React.PropsWithChildren;
 
 export const SingleElementForm: React.FC<SingleElementFormProps> = ({
@@ -39,6 +41,7 @@ export const SingleElementForm: React.FC<SingleElementFormProps> = ({
   extra,
   useFormProps,
   formProps: formPropsFromProp,
+  allowedRoles,
 }) => {
   const { formProps, saveButtonProps } = useForm({
     action: "edit",
@@ -55,6 +58,13 @@ export const SingleElementForm: React.FC<SingleElementFormProps> = ({
     mutationMode: "optimistic",
     ...useFormProps,
   });
+
+  const role = useUserRole(); // Get the user's role
+
+  // If allowedRoles is undefined or an empty array, allow all roles
+  const isAllowed = !allowedRoles || allowedRoles.length === 0 || allowedRoles.includes(role || "");
+
+  console.log("isAllowed", isAllowed);
 
   return (
     <Form layout="vertical" {...formProps} {...formPropsFromProp}>
@@ -99,7 +109,7 @@ export const SingleElementForm: React.FC<SingleElementFormProps> = ({
           )}
         </div>
 
-        {state === "view" && (
+        {state === "view" && isAllowed && (
           <div className={styles.actions}>
             {/* @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66 */}
             <Button onClick={onClick} icon={<EditOutlined />} />

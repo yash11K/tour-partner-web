@@ -1,0 +1,39 @@
+.customModal :global(.ant-modal-content) {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.customModal :global(.ant-modal-header) {
+  border-radius: 8px 8px 0 0;
+  background-color: #f0f2f5;
+  padding: 16px 24px;
+}
+
+.customModal :global(.ant-modal-title) {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.customModal :global(.ant-modal-body) {
+  padding: 24px;
+  font-size: 14px;
+}
+
+.customModal :global(.ant-modal-footer) {
+  border-top: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.customModal :global(.ant-btn) {
+  border-radius: 4px;
+}
+
+.customModal :global(.ant-btn-primary) {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.customModal :global(.ant-btn-primary:hover) {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}

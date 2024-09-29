@@ -5,7 +5,7 @@ import {useCreate } from '@refinedev/core';
 import { HttpError } from '@refinedev/core';
 
 import { ExclamationCircleOutlined,MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Image, Input, message, Modal, Row, Space,Switch } from 'antd';
+import { Button, Col, Form, Image, Input, message, Modal, Row, Space,Switch, Checkbox } from 'antd';
 import { Rule } from 'antd/es/form';
 
 
@@ -238,12 +238,13 @@ export const NewOrganizationModal: React.FC<NewOrganizationModalProps> = ({
               </Form.Item>
               <Form.Item
                 name="avis"
-                label="Avis"
                 valuePropName="checked"
                 initialValue={false}
               >
-                <Space>
-                  <Switch onChange={(checked) => setShowAvisLogo(checked)} />
+                <Space align="center">
+                  <Checkbox onChange={(e) => setShowAvisLogo(e.target.checked)}>
+                    Avis
+                  </Checkbox>
                   {showAvisLogo && (
                     <Image
                       src="/public/Avis_red.png"
@@ -256,12 +257,13 @@ export const NewOrganizationModal: React.FC<NewOrganizationModalProps> = ({
               </Form.Item>
               <Form.Item
                 name="budget"
-                label="Budget"
                 valuePropName="checked"
                 initialValue={false}
               >
-                <Space>
-                  <Switch onChange={(checked) => setShowBudgetLogo(checked)} />
+                <Space align="center">
+                  <Checkbox onChange={(e) => setShowBudgetLogo(e.target.checked)}>
+                    Budget
+                  </Checkbox>
                   {showBudgetLogo && (
                     <Image
                       src="/public/Budget_white.png"

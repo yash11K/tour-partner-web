@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 import { useDelete, useNavigation, useShow, useUpdate } from "@refinedev/core";
 import type { GetFields } from "@refinedev/nestjs-query";
-
 import {
     CloseOutlined,
     DeleteOutlined,
@@ -11,34 +9,25 @@ import {
     PhoneOutlined,
 } from "@ant-design/icons";
 import {
+    Alert,
     Button,
     Drawer,
     Input,
     Popconfirm,
     Spin,
     Typography,
-    Alert,
 } from "antd";
 import dayjs from "dayjs";
 
 import {
     CustomAvatar,
-    SelectOptionWithAvatar,
     SingleElementForm,
     Text,
-    TextIcon,
 } from "@/components";
-import { TimezoneEnum } from "@/enums";
-import { useCompaniesSelect } from "@/hooks/useCompaniesSelect";
-import { useUsersSelect } from "@/hooks/useUsersSelect";
+import { User } from "@/rest-api/schema.types";
+import { useUserRole } from "@/hooks/useUserRole";
 
 import styles from "./index.module.css";
-import {User} from "@/rest-api/schema.types";
-
-const timezoneOptions = Object.keys(TimezoneEnum).map((key) => ({
-    label: TimezoneEnum[key as keyof typeof TimezoneEnum],
-    value: TimezoneEnum[key as keyof typeof TimezoneEnum],
-}));
 
 type ContactShowPageProps = {
     id: string;
@@ -66,11 +55,13 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
     >();
     const [isVisible, setIsVisible] = useState(visible);
     const { list } = useNavigation();
+    const userRole = useUserRole();
+
     const { queryResult } = useShow<GetFields<User>>({
         resource: resource.endsWith('/') ? resource.slice(0, -1) : resource,
         id,
         queryOptions: {
-            enabled: false,
+            enabled: visible,
         },
     });
 
@@ -81,7 +72,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
     }, [visible]);
 
     useEffect(() => {
-        if (visible) {
+        if (visible && !data) {
             setLoading(true);
             refetch()
                 .then(() => setLoading(false))
@@ -90,7 +81,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                     onError(error.message || "Failed to load user details");
                 });
         }
-    }, [visible, refetch, setLoading, onError]);
+    }, [visible, data, refetch, setLoading, onError]);
 
     const { mutate: updateMutation } = useUpdate<User>({
         resource: "users",
@@ -106,17 +97,18 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
 
     const closeModal = () => {
         setActiveForm(undefined);
-
         list("users");
     };
 
     const handleClose = () => {
         setIsVisible(false);
-        // Delay the onClose callback to allow for animation
         setTimeout(() => {
             onClose();
-        }, 300); // 300ms is the default animation duration for Ant Design Drawer
+        }, 300);
     };
+
+    const isTourAdmin = userRole === 'TourAdmin';
+    const isSuperAdmin = userRole === 'SuperAdmin';
 
     if (loading || queryLoading) {
         return (
@@ -181,7 +173,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
             <div className={styles.header}>
                 <Button
                     type="text"
-                    icon={<CloseOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                    icon={<CloseOutlined onPointerEnterCapture={onpointerenter} onPointerLeaveCapture={onpointerleave} />}
                     onClick={handleClose}
                 />
             </div>
@@ -222,7 +214,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                             label: "Email",
                         }}
                         view={<Text>{email} {email_verified && <span>(Verified)</span>}</Text>}
-                        onClick={() => setActiveForm("email")}
+                        onClick={() => isTourAdmin && setActiveForm("email")}
                         onUpdate={() => setActiveForm(undefined)}
                         onCancel={() => setActiveForm(undefined)}
                     >
@@ -243,7 +235,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                             label: "Phone",
                         }}
                         view={<Text>{phone_number} {phone_verified && <span>(Verified)</span>}</Text>}
-                        onClick={() => setActiveForm("phone_number")}
+                        onClick={() => isTourAdmin && setActiveForm("phone_number")}
                         onUpdate={() => setActiveForm(undefined)}
                         onCancel={() => setActiveForm(undefined)}
                     >
@@ -264,7 +256,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                             label: "Given Name",
                         }}
                         view={<Text>{given_name}</Text>}
-                        onClick={() => setActiveForm("given_name")}
+                        onClick={() => isTourAdmin && setActiveForm("given_name")}
                         onUpdate={() => setActiveForm(undefined)}
                         onCancel={() => setActiveForm(undefined)}
                     >
@@ -285,7 +277,7 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                             label: "Family Name",
                         }}
                         view={<Text>{family_name}</Text>}
-                        onClick={() => setActiveForm("family_name")}
+                        onClick={() => isTourAdmin && setActiveForm("family_name")}
                         onUpdate={() => setActiveForm(undefined)}
                         onCancel={() => setActiveForm(undefined)}
                     >
@@ -301,43 +293,43 @@ export const ContactShowPage: React.FC<ContactShowPageProps> = ({
                         Last login: {dayjs(last_login).format("MMMM DD, YYYY HH:mm:ss")}
                     </Text>
 
-                    <Popconfirm
-                        title={isCurrentlyBlocked ? "Enable" : "Disable"}
-                        description={
-                            isCurrentlyBlocked
-                                ? "Are you sure you want to enable this contact? This will restore access to book1.carrental.com"
-                                : "Are you sure you want to disable this contact? This will block all access to book1.carrental.com"
-                        }
-                        onConfirm={() => {
-                            updateMutation(
-                                {
-                                    id: user_id,
-                                    resource: "users/:id",
-                                    values: {
-                                        metadata: {
-                                            isblocked: isCurrentlyBlocked ? "false" : "true",
+                        <Popconfirm
+                            title={isCurrentlyBlocked ? "Enable" : "Disable"}
+                            description={
+                                isCurrentlyBlocked
+                                    ? "Are you sure you want to enable this contact? This will restore access to book1.carrental.com"
+                                    : "Are you sure you want to disable this contact? This will block all access to book1.carrental.com"
+                            }
+                            onConfirm={() => {
+                                updateMutation(
+                                    {
+                                        id: user_id,
+                                        resource: "tours/members",
+                                        values: {
+                                            metadata: {
+                                                isblocked: isCurrentlyBlocked ? "false" : "true",
+                                            },
                                         },
                                     },
-                                },
-                                {
-                                    onSuccess: () => {
-                                        closeModal();
-                                        refetch();
+                                    {
+                                        onSuccess: () => {
+                                            closeModal();
+                                            refetch();
+                                        },
                                     },
-                                },
-                            );
-                        }}
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button 
-                            type="link" 
-                            danger={!isCurrentlyBlocked} 
-                            icon={<DeleteOutlined onPointerEnterCapture={onpointerenter} onPointerLeaveCapture={onpointerleave} />}
+                                );
+                            }}
+                            okText="Yes"
+                            cancelText="No"
                         >
-                            {isCurrentlyBlocked ? "Enable" : "Disable"}
-                        </Button>
-                    </Popconfirm>
+                            <Button 
+                                type="link" 
+                                danger={!isCurrentlyBlocked} 
+                                icon={<DeleteOutlined onPointerEnterCapture={onpointerenter} onPointerLeaveCapture={onpointerleave} />}
+                            >
+                                {isCurrentlyBlocked ? "Enable" : "Disable"}
+                            </Button>
+                        </Popconfirm>
                 </div>
             </div>
         </Drawer>

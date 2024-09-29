@@ -68,12 +68,10 @@ export const UserTag: FC<Props> = ({ user, resource }) => {
           id={user.id}
           visible={drawerVisible}
           onClose={closeDrawer}
-          loading={loading}
           setLoading={setLoading}
           error={error}
           onError={handleError}
-          resource={resource}
-        />
+          resource={resource} loading={false}        />
       )}
     </>
   );

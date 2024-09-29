@@ -53,7 +53,7 @@ const App: React.FC = () => {
           <AntdApp>
             <DevtoolsProvider>
               <Refine
-                authProvider={authProvider}
+                authProvider={useAuth0Provider()}
                 dataProvider={dataProvider("http://localhost:8080",axiosInstanceMy)}
                 routerProvider={routerProvider}
                 resources={resources}

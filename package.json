@@ -43,6 +43,7 @@
     "graphql": "^15.6.1",
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.9.1",
+    "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "react": "^18.0.0",
@@ -50,7 +51,9 @@
     "react-instantsearch": "^7.0.1",
     "react-leaflet": "^4.2.1",
     "react-leaflet-cluster": "^2.1.0",
-    "react-router-dom": "^6.8.1"
+    "react-phone-input-2": "^2.15.1",
+    "react-router-dom": "^6.8.1",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",

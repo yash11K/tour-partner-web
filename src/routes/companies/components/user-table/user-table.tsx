@@ -1,5 +1,5 @@
 import {useTable} from "@refinedev/antd";
-import {ADMINISTRATION_USERS_QUERY} from "@/routes/administration/queries";
+
 import {User} from "@/rest-api/schema.types";
 
 const UsersTable = () => {

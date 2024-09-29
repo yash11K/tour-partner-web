@@ -63,10 +63,11 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => 
           return (
             <Space>
               <CustomAvatar
-                shape="circle"
+                shape="square"
                 name={record.name}
                 src={record.branding?.logo_url}
                 style={{ objectFit: "contain" }}
+                size="large" // This is now the default, but you can specify it explicitly if you want
               />
               <Text
                 style={{

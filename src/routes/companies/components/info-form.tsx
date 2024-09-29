@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ShopOutlined } from "@ant-design/icons";
-import { Card, Image,Space } from "antd";
+import { Button, Card, Image, message, Space } from "antd";
 
 import { Text } from "@/components";
+import { useUpdateOrganization } from "@/hooks/useUpdateOrganization"; // Assume this hook exists
 import { Organization } from "@/rest-api/types";
 import { currencyNumber } from "@/utilities";
 
-
 export const CompanyInfoForm: React.FC<{ organization: Organization }> = ({ organization }) => {
+  const { updateOrganization, isLoading } = useUpdateOrganization();
+  const [isBlocked, setIsBlocked] = useState(organization.metadata?.isBlocked === "true");
+
+  const handleToggleBlock = async () => {
+    const action = isBlocked ? 'enable' : 'disable';
+    try {
+      const updatedOrg = await updateOrganization(
+        organization.id,
+        {
+          metadata: { ...organization.metadata, isBlocked: isBlocked ? "false" : "true" }
+        }
+      );
+      if (updatedOrg) {
+        setIsBlocked(!isBlocked);
+        message.success(`Organization ${action}d successfully`);
+      }
+    } catch (error) {
+      message.error(`Failed to ${action} organization`);
+    }
+  };
+
   return (
     <Card
       title={
@@ -43,6 +64,19 @@ export const CompanyInfoForm: React.FC<{ organization: Organization }> = ({ orga
             )}
           </div>
         </div>
+        
+        <Button 
+          type="primary"
+          danger={!isBlocked}
+          onClick={handleToggleBlock}
+          loading={isLoading}
+          style={{ 
+            backgroundColor: isBlocked ? "#52c41a" : undefined, 
+            borderColor: isBlocked ? "#52c41a" : undefined 
+          }}
+        >
+          {isBlocked ? "Enable" : "Disable"}
+        </Button>
       </Space>
     </Card>
   );
