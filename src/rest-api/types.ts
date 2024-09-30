@@ -34,4 +34,15 @@ export type OrganizationMember = {
   // Add other user properties as needed
 };
 
+export interface Reservation {
+  createdOn: number;
+  reservationId: string;
+  reservationDate: number;
+  createdBy: string;
+  registeredPartner: string;
+  amount: number;
+  currency: string;
+  typeOf: "create" | "cancel";
+}
+
 // Update the existing Company type or create a new one

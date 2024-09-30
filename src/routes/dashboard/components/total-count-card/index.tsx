@@ -156,7 +156,7 @@ const variants: {
         />
       </IconWrapper>
     ),
-    title: "Number of companies",
+    title: "Number of Partners",
     data: [
       {
         index: "1",
@@ -236,7 +236,7 @@ const variants: {
         />
       </IconWrapper>
     ),
-    title: "Total deals in pipeline",
+    title: "Net Number of Reservations",
     data: [
       {
         index: "1",

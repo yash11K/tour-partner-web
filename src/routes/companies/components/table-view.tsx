@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useState, useEffect } from "react";
 
 import { EditButton, FilterDropdown } from "@refinedev/antd";
 import {
@@ -9,7 +10,7 @@ import {
 
 import { EyeOutlined, PlusOutlined,SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, type TableProps } from "antd";
-import { Tag,Typography  } from 'antd';
+import { Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 
 import { CustomAvatar, PaginationTotal, Text } from "@/components";
@@ -35,36 +36,71 @@ type Props = {
 };
 
 export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => {
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState<Organization[]>([]);
+  const [sortedInfo, setSortedInfo] = useState<{
+    columnKey: string | null;
+    order: 'ascend' | 'descend' | null;
+  }>({
+    columnKey: null,
+    order: null,
+  });
+
+  useEffect(() => {
+    const dataSource = data || tableProps.dataSource || [];
+    const filtered = dataSource.filter((item) =>
+      item?.display_name?.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [data, tableProps.dataSource, searchText]);
+
+  const handleSearch = (value: string) => {
+    setSearchText(value);
+  };
+
+  const handleTableChange: TableProps<Organization>['onChange'] = (pagination, filters, sorter) => {
+    if (Array.isArray(sorter)) {
+      setSortedInfo(sorter[0] as { columnKey: string; order: 'ascend' | 'descend' | null });
+    } else {
+      setSortedInfo(sorter as { columnKey: string; order: 'ascend' | 'descend' | null });
+    }
+  };
+
   return (
     <Table
       {...tableProps}
-      dataSource={data || tableProps.dataSource}
+      dataSource={filteredData}
       pagination={{
         ...tableProps.pagination,
         pageSizeOptions: ["12", "24", "48", "96"],
         showTotal: (total) => (
-          <PaginationTotal total={total} entityName="companies" />
+          <PaginationTotal total={total} entityName="partners" />
         ),
       }}
       rowKey="id"
+      onChange={handleTableChange}
     >
-      <Table.Column<Company>
+      <Table.Column<Organization>
         dataIndex="name"
-        title="Company title"
+        title="Partner title"
         defaultFilteredValue={getDefaultFilter("id", filters)}
-        // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-        filterIcon={<SearchOutlined />}
-        filterDropdown={(props) => (
-          <FilterDropdown {...props}>
-            <Input placeholder="Search Company" />
-          </FilterDropdown>
+        filterIcon={<SearchOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+        filterDropdown={() => (
+          <Input
+            placeholder="Search Partner by name"
+            value={searchText}
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ width: 200, marginBottom: 8, display: 'block' }}
+          />
         )}
+        sorter={(a, b) => (a?.display_name || '').localeCompare(b?.display_name || '')}
+        sortOrder={sortedInfo.columnKey === 'name' ? sortedInfo.order : null}
         render={(_, record) => {
           return (
             <Space>
               <CustomAvatar
                 shape="square"
-                name={record.name}
+                name={record.display_name}
                 src={record.branding?.logo_url}
                 style={{ objectFit: "contain" }}
                 size="large" // This is now the default, but you can specify it explicitly if you want
@@ -74,7 +110,7 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => 
                   whiteSpace: "nowrap",
                 }}
               >
-                {record.name}
+                {record.display_name}
               </Text>
             </Space>
           );
@@ -101,6 +137,7 @@ export const CompaniesTableView: FC<Props> = ({ tableProps, filters, data }) => 
           </Typography.Text>
         )}
         sorter={(a, b) => dayjs(a.createdAt).unix() - dayjs(b.createdAt).unix()}
+        sortOrder={sortedInfo.columnKey === 'createdAt' ? sortedInfo.order : null}
       />
 
       <Table.Column<Organization>
